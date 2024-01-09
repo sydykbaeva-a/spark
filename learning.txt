@@ -1,0 +1,5 @@
+Developing app:
+    node server/server.js - run server
+
+Application's terminology:
+    
