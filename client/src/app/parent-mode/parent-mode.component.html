@@ -1,0 +1,43 @@
+
+<h1>Adding Child</h1>
+  <div class="text-center">
+    <h1 class="text">My child</h1>
+  </div>
+  <ul class="text-center">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>user_id</th>
+          <th>habit_child_map_id</th>
+          <th>Delete</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of children$ | async">
+          <td>{{ c.child_id }}</td>
+          <td>{{ c.child_name }}</td>
+          <td>{{ c.user_id }}</td>
+          <td>{{ c.habit_child_map_id }}</td>
+          <td>
+            <button type="button" style="background-color:rgb(232, 57, 57); color: white" (click)="deleteChild(c.child_id!)">Delete</button>
+          </td>
+          <td>
+            <button type="button" style="background-color:rgb(65, 65, 228); color: white" (click)="editChild(c.child_id!, c.child_name!)">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ul>  
+  <div class="button">
+    <button type="button" class="text" style="background-color:rgb(53, 207, 53); color: white"  (click)="addingChild()">Add Child</button>
+    <button type="button" class="text" (click)="findingChild()">Find Child</button>
+</div>
+<div *ngIf="child$ | async as child" >
+    <li class="button">ChildId: {{ child.child_id }}</li>
+    <li class="button">ChildName: {{ child.child_name }}</li>
+    <li class="button">UserId: {{ child.user_id }}</li>
+    <li class="button">habit_child_map_id: {{ child.habit_child_map_id }}</li>
+</div>
