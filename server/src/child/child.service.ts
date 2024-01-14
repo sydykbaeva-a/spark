@@ -10,8 +10,19 @@ export class ChildService {
     async find(){
         return await this.childRepo.find(); 
     }
+    async findOne(id: number){
+        return await this.childRepo.findOne({where: {child_id: id}}); 
+    }
+
+    async update(id: number, childEntity: ChildEntity){
+        return await this.childRepo.update(id, childEntity); 
+    }
 
     async save(childEntity){
         return await this.childRepo.save(childEntity);
+    }
+
+    async delete(id){
+        return await this.childRepo.delete(id);
     }
 }
