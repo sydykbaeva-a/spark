@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { ParentModeComponent } from './parent-mode/parent-mode.component';
 import { ChildModeComponent } from './child-mode/child-mode.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AddChildService } from './add-child.service';
+import { ChildService } from './child.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +18,7 @@ import { AddChildService } from './add-child.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AddChildService],
+  providers: [ChildService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
