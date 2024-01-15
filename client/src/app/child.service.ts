@@ -13,8 +13,8 @@ export class ChildService {
   
   
   getChildren(): Observable<IChild[]>{
-    this.baseHttpUrl += 'child';
-    return this.http.get<IChild[]>(this.baseHttpUrl).pipe(
+    const httpUrl = this.baseHttpUrl + 'child';
+    return this.http.get<IChild[]>(httpUrl).pipe(
       catchError((error) => {
         console.log('Error on getting children');
         return [];
@@ -23,8 +23,8 @@ export class ChildService {
   }
 
   findChild(childId: number): Observable<IChild>{
-    this.baseHttpUrl += 'child';
-    return this.http.get<IChild>(`${this.baseHttpUrl}/${childId}`).pipe(
+    const httpUrl = this.baseHttpUrl + 'child';
+    return this.http.get<IChild>(`${httpUrl}/${childId}`).pipe(
       catchError((error) => {
         console.log('Error on getting a child');
         return [];
@@ -33,8 +33,8 @@ export class ChildService {
   }
 
   addChild(child: IChild): Observable<IChild[]>{
-    this.baseHttpUrl += 'child_add';
-    return this.http.post<IChild[]>(this.baseHttpUrl, child).pipe(
+    const httpUrl = this.baseHttpUrl + 'child_add';
+    return this.http.post<IChild[]>(httpUrl, child).pipe(
       catchError((error) => {
         console.log('Error on adding new child');
         return [];
@@ -43,12 +43,12 @@ export class ChildService {
   }
 
   deleteChild(childId: number): Observable<IChild[]>{
-    this.baseHttpUrl += 'child_delete';
-    return this.http.delete<IChild[]>(`${this.baseHttpUrl}/${childId}`);
+    const httpUrl = this.baseHttpUrl + 'child_delete';
+    return this.http.delete<IChild[]>(`${httpUrl}/${childId}`);
   }
 
   editChild(childId: number, childName: {child_name: string}): Observable<IChild[]>{
-    this.baseHttpUrl += 'child_edit';
-    return this.http.patch<IChild[]>(`${this.baseHttpUrl}/${childId}`, childName);
+    const httpUrl = this.baseHttpUrl + 'child_edit';
+    return this.http.patch<IChild[]>(`${httpUrl}/${childId}`, childName);
   }
 }
