@@ -12,7 +12,7 @@ export class ChildService {
   constructor(private http: HttpClient) {}
   
   
-  getChildren(): Observable<IChild[]>{
+  findChildren(): Observable<IChild[]>{
     const httpUrl = this.baseHttpUrl + 'child';
     return this.http.get<IChild[]>(httpUrl).pipe(
       catchError((error) => {
