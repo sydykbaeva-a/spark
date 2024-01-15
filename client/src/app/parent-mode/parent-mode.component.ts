@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class ParentModeComponent implements OnInit{
   children$ = new Observable<IChild[]>();
-  child$: Observable<IChild> = new Observable<IChild>();
+  child$ = new Observable<IChild>();
   childExist = false;
   constructor(private childService: ChildService){}
 
