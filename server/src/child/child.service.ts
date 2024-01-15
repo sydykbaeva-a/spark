@@ -10,7 +10,6 @@ export class ChildService {
     async find(){
         return (await this.childRepo.find()).sort((child1, child2) => child1.child_id - child2.child_id); 
     }
-    
     async findOne(id: number){
         return await this.childRepo.findOne({where: {child_id: id}}); 
     }
