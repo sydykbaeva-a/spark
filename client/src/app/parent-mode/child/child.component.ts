@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ChildService } from '../child.service';
-import { IChild } from '../child.interface';
+import { ChildService } from '../../child.service';
+import { IChild } from '../../child.interface';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-parent-mode',
-  templateUrl: './parent-mode.component.html',
-  styleUrls: ['./parent-mode.component.scss']
+  selector: 'app-child',
+  templateUrl: './child.component.html',
+  styleUrls: ['./child.component.scss']
 })
 export class ParentModeComponent implements OnInit{
   children$ = new Observable<IChild[]>();
@@ -15,11 +15,11 @@ export class ParentModeComponent implements OnInit{
   constructor(private childService: ChildService){}
 
   ngOnInit(){
-    this.getChildren();
+    this.findChildren();
   }
 
-  getChildren(){
-    return this.children$ = this.childService.getChildren();
+  findChildren(){
+    return this.children$ = this.childService.findChildren();
   }
 
   addingChild() {
