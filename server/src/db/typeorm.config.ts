@@ -5,9 +5,9 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from "@nestjs/typeorm";
 @Injectable()
 
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
-    constructor(private readonly configService: ConfigService){}
+    constructor(private readonly configService: ConfigService) { }
 
-    async createTypeOrmOptions(): Promise<TypeOrmModuleOptions>  {
+    async createTypeOrmOptions(): Promise<TypeOrmModuleOptions> {
         return {
             type: 'postgres',
             host: this.configService.get<string>('DB_HOST'),
@@ -15,7 +15,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
             password: this.configService.get<string>('DB_PASSWORD'),
             database: this.configService.get<string>('DB_NAME'),
             entities: ['dist/**/*.entity.js'],
-            synchronize: true,
+            // synchronize: true,
             ssl: true
         }
     }
