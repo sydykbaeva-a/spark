@@ -9,6 +9,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmConfigService } from './db/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ChildEntity } from './child/child.entity';
+import { HabitService } from './habit/habit.service';
+import { HabitEntity } from './habit/habit.entity';
+import { HabitChildMapEntity } from './habit/habit_child_map.entity';
 
 @Module({
   imports: [
@@ -16,13 +19,12 @@ import { ChildEntity } from './child/child.entity';
       rootPath: join(__dirname, '..', '..', 'client', 'dist', 'client'),
     }),
     ConfigModule.forRoot(),
-    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService, imports: [ConfigModule]}),
-    TypeOrmModule.forFeature([ChildEntity])
-    
+    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService, imports: [ConfigModule] }),
+    TypeOrmModule.forFeature([ChildEntity, HabitEntity, HabitChildMapEntity])
   ],
   controllers: [AppController, ParentController],
-  providers: [AppService, ChildService],
+  providers: [AppService, ChildService, HabitService],
 })
-export class AppModule {}
+export class AppModule { }
 
 
