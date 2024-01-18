@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { ParentController } from './parent/parent.controller';
+import { AdminController } from './parent/admin.controller';
 import { ChildService } from './child/child.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmConfigService } from './db/typeorm.config';
@@ -22,7 +22,7 @@ import { HabitChildMapEntity } from './habit/habit_child_map.entity';
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService, imports: [ConfigModule] }),
     TypeOrmModule.forFeature([ChildEntity, HabitEntity, HabitChildMapEntity])
   ],
-  controllers: [AppController, ParentController],
+  controllers: [AppController, AdminController],
   providers: [AppService, ChildService, HabitService],
 })
 export class AppModule { }
