@@ -13,9 +13,6 @@ export class ChildEntity {
     @Column()
     user_id: number;
 
-    // @Column()
-    // habit_child_map_id: number;
-
     @ManyToMany(() => HabitEntity, habit => habit.children)
     habits: HabitEntity[];
 
