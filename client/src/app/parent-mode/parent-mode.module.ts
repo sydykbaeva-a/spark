@@ -6,11 +6,11 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ParentModeComponent } from './child/child.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
-  declarations: [
-    StepperComponent
-  ],
+  declarations: [StepperComponent, ParentModeComponent],
   imports: [
     CommonModule,
     MatStepperModule,
@@ -20,9 +20,8 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     MatButtonModule,
     AsyncPipe,
+    MatTableModule,
   ],
-  exports: [
-    StepperComponent
-  ]
+  exports: [StepperComponent],
 })
-export class ParentModeModule { }
+export class ParentModeModule {}
