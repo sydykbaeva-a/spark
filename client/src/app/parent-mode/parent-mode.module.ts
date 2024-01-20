@@ -8,9 +8,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ParentModeComponent } from './child/child.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { HabitComponent } from './habit/habit.component';
 
 @NgModule({
-  declarations: [StepperComponent, ParentModeComponent],
+  declarations: [
+    ParentModeComponent,
+    StepperComponent,
+    HabitComponent
+  ],
   imports: [
     CommonModule,
     MatStepperModule,
@@ -21,7 +27,12 @@ import { MatTableModule } from '@angular/material/table';
     MatButtonModule,
     AsyncPipe,
     MatTableModule,
+    MatSlideToggleModule
   ],
-  exports: [StepperComponent],
+  exports: [
+    ParentModeComponent,
+    StepperComponent,
+    HabitComponent
+  ]
 })
-export class ParentModeModule {}
+export class ParentModeModule { }
