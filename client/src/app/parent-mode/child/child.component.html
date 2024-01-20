@@ -1,9 +1,9 @@
 <div class="add-child-input">
   <mat-form-field>
       <mat-label>Child Name</mat-label>
-      <input matInput placeholder="Andy" [(ngModel)]="childName">
+      <input matInput placeholder="Andy" [(ngModel)]="childName" (input)="checkInput()" required>
     </mat-form-field>
-    <button mat-raised-button style="background-color: rgb(77, 186, 120); color:white" (click)="addingChild()">Add Child</button>
+    <button mat-raised-button style="background-color: rgb(77, 186, 120); color:white" [disabled]="invalidInput" (click)="addingChild()">Add Child</button>
 </div>
 <table mat-table [dataSource]="children$" class="mat-elevation-z8 child-table">
   <ng-container matColumnDef="child_name">
