@@ -15,28 +15,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AsyncPipe } from '@angular/common';
+import { ParentModeModule } from './parent-mode/parent-mode.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ParentModeComponent,
-    ChildModeComponent,
-    StepperComponent
-  ],
+  declarations: [AppComponent, ChildModeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatStepperModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    AsyncPipe,
+    ParentModeModule,
   ],
   providers: [ChildService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

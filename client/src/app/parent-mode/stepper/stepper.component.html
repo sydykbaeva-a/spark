@@ -1,12 +1,9 @@
 <mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!">
     <mat-step [stepControl]="firstFormGroup" label="Add child">
-        <form [formGroup]="firstFormGroup">
-            <mat-form-field>
-                <mat-label>Name</mat-label>
-                <input matInput placeholder="Andy" formControlName="firstCtrl" required>
-            </mat-form-field>
+        <form [formGroup]="firstFormGroup" class="child-form">
+            <app-child></app-child>
             <div>
-                <button mat-button matStepperNext>Next</button>
+                <button class="next-button" mat-raised-button matStepperNext>Next</button>
             </div>
         </form>
     </mat-step>
