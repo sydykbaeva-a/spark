@@ -1,4 +1,5 @@
 <mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!">
+
     <mat-step [stepControl]="firstFormGroup" label="Add child">
         <form [formGroup]="firstFormGroup" class="child-form">
             <app-child></app-child>
@@ -7,18 +8,19 @@
             </div>
         </form>
     </mat-step>
+
     <mat-step [stepControl]="secondFormGroup" label="Add Habits">
         <form [formGroup]="secondFormGroup">
-            <mat-form-field>
-                <mat-label>Habit</mat-label>
-                <input matInput formControlName="secondCtrl" placeholder="Brush teeth" required>
-            </mat-form-field>
+            <app-habit></app-habit>
+
             <div>
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button matStepperNext>Next</button>
             </div>
+
         </form>
     </mat-step>
+
     <mat-step>
         <ng-template matStepLabel>Done</ng-template>
         <p>You are now done.</p>
@@ -26,4 +28,5 @@
             <button mat-button matStepperPrevious>Back</button>
         </div>
     </mat-step>
+
 </mat-stepper>
