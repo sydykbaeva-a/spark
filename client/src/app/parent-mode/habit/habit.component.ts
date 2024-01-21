@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { HabitChildMapInterface } from 'src/app/habit-child-map.interface';
+import { IHabitChildMap } from 'src/app/habit-child-map.interface';
 import { HabitService } from 'src/app/habit.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { HabitService } from 'src/app/habit.service';
     styleUrls: ['./habit.component.scss']
 })
 export class HabitComponent implements OnInit {
-    habitChildMapData = new MatTableDataSource<HabitChildMapInterface>();
+    habitChildMapData = new MatTableDataSource<IHabitChildMap>();
     formUserId!: number;
     showAdminColumns: boolean = true;
     displayedColumnsHabit: string[] = ['habit', 'child_id', 'child_name'];
@@ -26,7 +26,7 @@ export class HabitComponent implements OnInit {
     filterHabitsbyUser(defaultUserId?: number) {
         const userId = defaultUserId ?? +this.formUserId;
 
-        this.habitService.findHabitByUserApi(userId)
+        this.habitService.findHabitByUserId(userId)
             .subscribe(habits => {
                 console.log(`Filtered habits for user ID ${userId}: `, habits);
                 this.habitChildMapData.data = habits;
