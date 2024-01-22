@@ -4,13 +4,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChildService } from './child.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ChildModeComponent } from './child-mode/my-day/my-day.component';
+import { MyDayComponent } from './child-mode/my-day/my-day.component';
 import { ParentModeModule } from './parent-mode/parent-mode.module';
 import { HabitService } from './habit.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, ChildModeComponent],
+  declarations: [AppComponent],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -19,6 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
     ParentModeModule,
   ],
   providers: [ChildService, HabitService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
