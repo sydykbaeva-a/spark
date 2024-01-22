@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   templateUrl: './child.component.html',
   styleUrls: ['./child.component.scss'],
 })
-export class ParentModeComponent implements OnInit {
+export class ChildComponent implements OnInit {
   children$ = new Observable<IChild[]>();
   userId = 1;
   childName!: string;
@@ -32,12 +32,12 @@ export class ParentModeComponent implements OnInit {
     }
   }
 
-  addingChild() {
+  async addingChild() {
     const child: IChild = {
       child_name: this.childName,
       user_id: this.userId,
     };
-    this.children$ = this.childService.addChild(this.userId, child);
+    this.children$ = await this.childService.addChild(this.userId, child);
   }
 
   deleteChild(childId: number) {
@@ -60,6 +60,7 @@ export class ParentModeComponent implements OnInit {
       console.log('Error with user');
     } else {
       this.userId = Number(user);
+      this.childService.setCurrentUserId(this.userId);
       this.findChildren();
     }
   }

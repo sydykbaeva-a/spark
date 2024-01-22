@@ -6,16 +6,19 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ParentModeComponent } from './child/child.component';
+import { ChildComponent } from './child/child.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HabitComponent } from './habit/habit.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { HabitDialogComponent } from './habit/habit-dialog/habit-dialog.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
   declarations: [
-    ParentModeComponent,
+    ChildComponent,
     StepperComponent,
-    HabitComponent
+    HabitComponent,
+    HabitDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -27,12 +30,15 @@ import { HabitComponent } from './habit/habit.component';
     MatButtonModule,
     AsyncPipe,
     MatTableModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDialogModule, //
+    MatCheckboxModule,
   ],
   exports: [
-    ParentModeComponent,
+    ChildComponent,
     StepperComponent,
-    HabitComponent
-  ]
+    HabitComponent,
+    HabitDialogComponent,
+  ],
 })
-export class ParentModeModule { }
+export class ParentModeModule {}

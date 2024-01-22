@@ -8,7 +8,17 @@ import { Observable, catchError, tap } from 'rxjs';
 })
 export class ChildService {
   private baseHttpUrl = '/parent/';
+  private currUserId!: number;
   constructor(private http: HttpClient) {}
+
+  setCurrentUserId(userId: number) {
+    this.currUserId = userId;
+  }
+
+  getCurrentUserId(): number {
+    console.log(this.currUserId);
+    return this.currUserId;
+  }
 
   findChildren(userId: number): Observable<IChild[]> {
     const httpUrl = this.baseHttpUrl + userId + '/children';

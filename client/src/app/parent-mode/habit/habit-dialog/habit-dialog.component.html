@@ -1,0 +1,14 @@
+<ol>
+  <h1 mat-dialog-title>Habit Name</h1>
+      <mat-dialog-content>
+        <input matInput tabindex="1" [(ngModel)]="habitName" placeholder="Brush Teeth" />
+        <h1>Choose child</h1>
+        <mat-checkbox *ngFor="let child of children" [(ngModel)]="child.checked">{{child.child_name}}</mat-checkbox>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button mat-button tabindex="2" (click)="chosenChildrenAndAddHabit()">
+        Ok
+        </button>
+        <button mat-button (click)="onNoClick()" tabindex="-1">No Thanks</button>
+      </mat-dialog-actions>
+</ol>
