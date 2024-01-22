@@ -17,8 +17,8 @@ import { HabitChildMapEntity } from 'src/habit/habit_child_map.entity';
 export class ParentController {
   constructor(
     private readonly childService: ChildService,
-    private readonly habitService: HabitService
-  ) { }
+    private readonly habitService: HabitService,
+  ) {}
 
   @Get('/:userId/children') // HTTP methods
   async find(@Param('userId') userId: number): Promise<ChildEntity[]> {
@@ -76,7 +76,10 @@ export class ParentController {
   }
 
   @Patch('habit_edit/:id')
-  async updateHabit(@Param('id') id: number, @Body() habitEntity: HabitEntity): Promise<HabitEntity[]> {
+  async updateHabit(
+    @Param('id') id: number,
+    @Body() habitEntity: HabitEntity,
+  ): Promise<HabitEntity[]> {
     await this.habitService.update(id, habitEntity);
     return await this.habitService.find();
   }
@@ -94,7 +97,9 @@ export class ParentController {
   }
 
   @Post('habit_child_map_add')
-  async saveHabitChildMap(@Body() habitChildMapEntity: HabitChildMapEntity): Promise<HabitChildMapEntity[]> {
+  async saveHabitChildMap(
+    @Body() habitChildMapEntity: HabitChildMapEntity[],
+  ): Promise<HabitChildMapEntity[]> {
     await this.habitService.saveHabitChildMap(habitChildMapEntity);
     return await this.habitService.findHabitChildMap();
   }
@@ -104,5 +109,4 @@ export class ParentController {
   async findHabitsByUser(@Param('id') id: number) {
     return await this.habitService.findHabitsByUser(id);
   }
-
 }

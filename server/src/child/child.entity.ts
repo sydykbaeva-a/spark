@@ -1,5 +1,11 @@
 import { HabitEntity } from 'src/habit/habit.entity';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('child')
 export class ChildEntity {
@@ -13,5 +19,5 @@ export class ChildEntity {
   user_id: number;
 
   @ManyToMany(() => HabitEntity, (habit) => habit.children)
-  habits: HabitEntity[];
+  habitMap: HabitEntity[];
 }
