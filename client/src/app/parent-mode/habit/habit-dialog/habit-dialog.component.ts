@@ -1,4 +1,4 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IChild } from 'src/app/child.interface';
 import { ChildService } from 'src/app/child.service';
@@ -36,12 +36,11 @@ export class HabitDialogComponent {
     let habitId: number = 0;
 
     (await this.habitService.addHabit(habit)).subscribe((data) => {
-      const flattenedData = data.flat();
-
-      if (flattenedData.length > 0) {
-        const lastElement = flattenedData[flattenedData.length - 1];
+      if (data.length > 0) {
+        const lastElement = data[data.length - 1];
 
         if (lastElement && 'habit_id' in lastElement) {
+          //check if lastElement is not null | underfined AND lastElement has property habit_id
           habitId = lastElement.habit_id as number;
         }
       }
@@ -49,15 +48,13 @@ export class HabitDialogComponent {
     });
   }
 
-  addHabitAndChildMap(checkedChildren: IChild[], habitId: number) {
+  async addHabitAndChildMap(checkedChildren: IChild[], habitId: number) {
     const childrenIds: number[] = checkedChildren
       .map((child) => child.child_id)
       .filter((id): id is number => id !== undefined);
 
     let habitMap: IHabitChildMap[] = [];
     const test = childrenIds.map((element) => {
-      console.log(element);
-
       habitMap.push({
         child_id: element,
         habit_id: habitId,
@@ -65,7 +62,7 @@ export class HabitDialogComponent {
       });
     });
 
-    this.habitService.addHabitChildMap(habitMap).subscribe(() => {});
+    (await this.habitService.addHabitChildMap(habitMap)).subscribe(() => {});
 
     this.dialogRef.close();
   }
