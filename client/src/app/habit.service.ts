@@ -13,9 +13,11 @@ export class HabitService {
   private baseHttpUrl = '/parent/';
   private currUserId: number = 0;
 
-  findHabitByUserId(userId: number): Observable<IHabitChildMap[]> {
+  async findHabitByUserId(
+    userId: number
+  ): Promise<Observable<IHabitChildMap[]>> {
     this.currUserId = userId;
-    return this.http
+    return await this.http
       .get<IHabitChildMap[]>(`${this.baseHttpUrl}${userId}/habits`)
       .pipe(
         catchError((error) => {
@@ -36,15 +38,17 @@ export class HabitService {
     );
   }
 
-  addHabitChildMap(
+  async addHabitChildMap(
     habitChildMapEntity: IHabitChildMap[]
-  ): Observable<IHabitChildMap[]> {
+  ): Promise<Observable<IHabitChildMap[]>> {
     const httpUrl = this.baseHttpUrl + 'habit_child_map_add';
-    return this.http.post<IHabitChildMap[]>(httpUrl, habitChildMapEntity).pipe(
-      catchError((error) => {
-        console.log('Error on adding habitAndChildMap');
-        return [];
-      })
-    );
+    return await this.http
+      .post<IHabitChildMap[]>(httpUrl, habitChildMapEntity)
+      .pipe(
+        catchError((error) => {
+          console.log('Error on adding habitAndChildMap');
+          return [];
+        })
+      );
   }
 }

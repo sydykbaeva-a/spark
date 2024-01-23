@@ -16,7 +16,6 @@ export class ChildService {
   }
 
   getCurrentUserId(): number {
-    console.log(this.currUserId);
     return this.currUserId;
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ChildService } from 'src/app/child.service';
@@ -43,15 +43,20 @@ export class HabitComponent implements OnInit {
   }
   deleteHabit() {}
 
-  filterHabitsbyUser(result?: any) {
+  async filterHabitsbyUser(result?: any) {
     this.currUserId = this.childService.getCurrentUserId();
     const userId = this.currUserId;
 
-    this.habitService.findHabitByUserId(userId).subscribe((habits) => {
+    (await this.habitService.findHabitByUserId(userId)).subscribe((habits) => {
       console.log(`Filtered habits for user ID ${userId}: `, habits);
       this.habitChildMapData.data = habits;
       this.habitChildMapDataDialog = habits;
     });
+
+    // (await this.habitService.findHabitByUserId(userId)).subscribe((habits) => {
+    //   this.habitChildMapData.data = habits;
+    //   this.habitChildMapDataDialog = habits;
+    // });
   }
 
   toggleColumns() {

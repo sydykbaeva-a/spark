@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChildService } from './child.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MyDayComponent } from './child-mode/my-day/my-day.component';
 import { ParentModeModule } from './parent-mode/parent-mode.module';
 import { HabitService } from './habit.service';
 import { HttpClientModule } from '@angular/common/http';
