@@ -23,7 +23,15 @@
 
     <mat-step>
         <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
+        <div class="done-setup">
+            <h2>All done!</h2>
+            <p>Now that you've added habits for your children, click on the button below so they can start their daily
+                adventure of tracking their habits!</p>
+            <button mat-raised-button style="background:#4eba78; color: white">
+                <mat-icon>child_care</mat-icon>
+                Enter Child Mode
+            </button>
+        </div>
         <div>
             <button mat-button matStepperPrevious>Back</button>
         </div>
