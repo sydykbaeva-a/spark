@@ -13,6 +13,8 @@ import { HabitComponent } from './habit/habit.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HabitDialogComponent } from './habit/habit-dialog/habit-dialog.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     ChildComponent,
@@ -31,8 +33,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     AsyncPipe,
     MatTableModule,
     MatSlideToggleModule,
-    MatDialogModule, //
+    MatDialogModule,
     MatCheckboxModule,
+    MatIconModule
   ],
   exports: [
     ChildComponent,

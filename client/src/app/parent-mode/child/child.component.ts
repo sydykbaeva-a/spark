@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChildService } from '../../child.service';
 import { IChild } from '../../child.interface';
 import { Observable } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-child',
@@ -9,11 +10,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./child.component.scss'],
 })
 export class ChildComponent implements OnInit {
+  childDataSource = new MatTableDataSource<IChild>();
   children$ = new Observable<IChild[]>();
   userId = 1;
   childName!: string;
   invalidInput: boolean = true;
-  constructor(private childService: ChildService) {}
+  constructor(private childService: ChildService) { }
 
   ngOnInit() {
     this.chooseUser();
@@ -21,7 +23,11 @@ export class ChildComponent implements OnInit {
   }
 
   findChildren() {
-    return (this.children$ = this.childService.findChildren(this.userId));
+    this.childService.findChildren(this.userId)
+      .subscribe(child_all => {
+        console.log(`Filtered child list for user ID ${this.userId}: `, child_all);
+        this.childDataSource.data = child_all;
+      })
   }
 
   checkInput() {
@@ -37,21 +43,39 @@ export class ChildComponent implements OnInit {
       child_name: this.childName,
       user_id: this.userId,
     };
-    this.children$ = await this.childService.addChild(this.userId, child);
+    this.childService.addChild(this.userId, child).subscribe(child => {
+      console.log(`Add child ID ${this.childName} for parent ${this.userId}: `, child);
+      this.childDataSource.data = child;
+    })
   }
 
-  deleteChild(childId: number) {
-    this.children$ = this.childService.deleteChild(this.userId, childId);
+  deleteChild(childId: number, childDelete: boolean) {
+    this.childService.deleteChild(this.userId, childId).subscribe(() => {
+      console.log(`Child deleted successfully`);
+      childDelete = false;
+      this.findChildren();
+    })
   }
 
-  editChild(childId: number, childName: string) {
-    const name = prompt('Change Child Name:', childName);
-    const childEditName = { child_name: name! };
-    this.children$ = this.childService.editChild(
+  editChild(childId: number, childName: string, iChild: IChild) {
+    this.childService.editChild(
       this.userId,
       childId,
-      childEditName
-    );
+      childName
+    )
+      .subscribe(child => {
+        console.log(`Edit child ID ${childId} of children: `, child);
+        iChild.child_edit = false;
+      })
+  }
+
+  onEdit(item: any) {
+    console.log(`this.childDataSource.data: `, this.childDataSource.data);
+
+    this.childDataSource.data.forEach(element => {
+      element.child_edit = false;
+    })
+    item.child_edit = true;
   }
 
   chooseUser() {
