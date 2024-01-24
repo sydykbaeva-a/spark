@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+import { lastValueFrom } from 'rxjs';
 import { IChild } from 'src/app/child.interface';
 import { ChildService } from 'src/app/child.service';
 import { IHabitChildMap } from 'src/app/habit-child-map.interface';
@@ -15,6 +17,9 @@ export class HabitDialogComponent {
   habit!: HabitInterface;
   children!: IChild[];
   habitName!: string;
+  editMode = false;
+  previoslyCheckedChildIds: number[] = [];
+  listOfHabitAndChildMap: IHabitChildMap[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<HabitDialogComponent>,
@@ -25,27 +30,94 @@ export class HabitDialogComponent {
 
   ngOnInit() {
     const currUserId = this.childService.getCurrentUserId();
+
     this.childService.findChildren(currUserId).subscribe((data) => {
       this.children = data;
+      if (this.data.habitId) {
+        // to understand if user is editing
+        this.editHabit(this.data.habitId);
+      }
+    });
+  }
+
+  editHabit(habitId: number) {
+    this.editMode = true;
+    //Get records only of habitId
+    this.listOfHabitAndChildMap = this.data.name.filter(
+      (test: { habit_id: number }) => test.habit_id === habitId
+    );
+
+    this.listOfHabitAndChildMap.forEach((habitAndChildRecord) => {
+      this.habitName = habitAndChildRecord.habit_name!; // input name polluted with habit name
+      this.previoslyCheckedChildIds.push(habitAndChildRecord.child_id); // get the previously checked children
+    });
+
+    this.children.forEach((child) => {
+      // Check if child_id exists in the array of child_ids
+      if (this.previoslyCheckedChildIds.includes(child.child_id!)) {
+        // Set the checked property to true
+        child.checked = true;
+      }
     });
   }
 
   async chosenChildrenAndAddHabit() {
-    const chosenChildren = this.children.filter((child) => child.checked);
+    const currentlyCheckedChildren = this.children.filter(
+      (child) => child.checked
+    );
     const habit: HabitInterface = { habit_name: this.habitName };
     let habitId: number = 0;
 
-    (await this.habitService.addHabit(habit)).subscribe((data) => {
-      if (data.length > 0) {
-        const lastElement = data[data.length - 1];
+    if (this.editMode) {
+      const habit: HabitInterface = {
+        habit_name: this.habitName,
+        habit_id: this.data.habitId,
+      };
+      (await this.habitService.editHabit(this.data.habitId, habit)).subscribe();
 
-        if (lastElement && 'habit_id' in lastElement) {
-          //check if lastElement is not null | underfined AND lastElement has property habit_id
-          habitId = lastElement.habit_id as number;
+      // delete Record
+      this.previoslyCheckedChildIds.forEach(async (i) => {
+        const isChildStillChecked = currentlyCheckedChildren.find(
+          (child) => child.child_id === i
+        );
+        if (!isChildStillChecked) {
+          const deleteElement = this.listOfHabitAndChildMap.find(
+            (j) => j.child_id === i && j.habit_id === habit.habit_id
+          );
+
+          const s = await this.habitService.deleteHabitAndChildMap(
+            deleteElement!.habit_child_map_id!
+          );
+          const s2 = await lastValueFrom(s);
+          console.log('delete child');
         }
-      }
-      return this.addHabitAndChildMap(chosenChildren, habitId);
-    });
+      });
+
+      // add new Record
+      let newChosenChildren: IChild[] = [];
+      currentlyCheckedChildren.forEach((i) => {
+        const addElement = this.previoslyCheckedChildIds.find(
+          (childId) => childId === i.child_id
+        );
+        if (addElement === undefined) {
+          newChosenChildren.push(i);
+          console.log('add child to add');
+        }
+      });
+      this.addHabitAndChildMap(newChosenChildren, habit.habit_id!);
+    } else {
+      (await this.habitService.addHabit(habit)).subscribe((data) => {
+        if (data.length > 0) {
+          const lastElement = data[data.length - 1];
+
+          if (lastElement && 'habit_id' in lastElement) {
+            //check if lastElement is not null | underfined AND lastElement has property habit_id
+            habitId = lastElement.habit_id as number;
+          }
+        }
+        return this.addHabitAndChildMap(currentlyCheckedChildren, habitId);
+      });
+    }
   }
 
   async addHabitAndChildMap(checkedChildren: IChild[], habitId: number) {
@@ -54,7 +126,7 @@ export class HabitDialogComponent {
       .filter((id): id is number => id !== undefined);
 
     let habitMap: IHabitChildMap[] = [];
-    const test = childrenIds.map((element) => {
+    const test = childrenIds.forEach((element) => {
       habitMap.push({
         child_id: element,
         habit_id: habitId,
@@ -63,7 +135,7 @@ export class HabitDialogComponent {
     });
 
     (await this.habitService.addHabitChildMap(habitMap)).subscribe(() => {});
-
+    console.log('add actual child');
     this.dialogRef.close();
   }
 
