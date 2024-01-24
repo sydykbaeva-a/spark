@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, catchError, map, tap } from 'rxjs';
 import { IHabitChildMap } from './habit-child-map.interface';
 import { HabitInterface } from './habit.interface';
 
@@ -38,6 +38,30 @@ export class HabitService {
     );
   }
 
+  async editHabit(
+    habitId: number,
+    habit: HabitInterface
+  ): Promise<Observable<HabitInterface[]>> {
+    const httpUrl = this.baseHttpUrl + 'habit_edit';
+    return await this.http.patch<HabitInterface[]>(
+      `${httpUrl}/${habitId}`,
+      habit
+    );
+  }
+
+  async deleteHabitAndChildMap(
+    id: number
+  ): Promise<Observable<IHabitChildMap[]>> {
+    const httpUrl = this.baseHttpUrl + 'habit_child_map';
+    return await this.http.delete<IHabitChildMap[]>(`${httpUrl}/${id}`).pipe(
+      tap((response) => console.log(response)),
+      catchError((error) => {
+        console.log('Error on deleting map child');
+        return [];
+      })
+    );
+  }
+
   async addHabitChildMap(
     habitChildMapEntity: IHabitChildMap[]
   ): Promise<Observable<IHabitChildMap[]>> {
@@ -50,5 +74,10 @@ export class HabitService {
           return [];
         })
       );
+  }
+
+  async findChildHabitMap(): Promise<Observable<IHabitChildMap[]>> {
+    const httpUrl = this.baseHttpUrl + 'habit_child_map';
+    return await this.http.get<IHabitChildMap[]>(httpUrl);
   }
 }

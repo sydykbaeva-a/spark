@@ -6,6 +6,7 @@ import { IHabitChildMap } from 'src/app/habit-child-map.interface';
 import { HabitService } from 'src/app/habit.service';
 import { HabitDialogComponent } from './habit-dialog/habit-dialog.component';
 import { IChild } from 'src/app/child.interface';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-habit',
@@ -30,33 +31,43 @@ export class HabitComponent implements OnInit {
     this.filterHabitsbyUser();
   }
 
-  addHabit() {
+  addOrEditHabit(habit?: IHabitChildMap) {
+    const habitId = habit?.habit_id;
+
     let dialogRef = this.dialog.open(HabitDialogComponent, {
       width: '1000px',
-      data: { name: this.habitChildMapDataDialog },
+      data: { name: this.habitChildMapDataDialog, habitId },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
-      this.filterHabitsbyUser(result);
+      this.filterHabitsbyUser();
     });
   }
   deleteHabit() {}
 
-  async filterHabitsbyUser(result?: any) {
+  async filterHabitsbyUser() {
     this.currUserId = this.childService.getCurrentUserId();
-    const userId = this.currUserId;
 
-    (await this.habitService.findHabitByUserId(userId)).subscribe((habits) => {
-      console.log(`Filtered habits for user ID ${userId}: `, habits);
-      this.habitChildMapData.data = habits;
-      this.habitChildMapDataDialog = habits;
+    const habits = await this.habitService.findHabitByUserId(this.currUserId);
+    this.habitChildMapData.data = await lastValueFrom(habits);
+    this.habitChildMapDataDialog = await lastValueFrom(habits);
+
+    const allChildHabitMapRecords = await this.habitService.findChildHabitMap();
+    const habitChildMapRecord = await lastValueFrom(allChildHabitMapRecords);
+
+    this.habitChildMapDataDialog.forEach((habitMapDialog) => {
+      // get che habit_child_map_id and assign to habitChildMapDialog
+      const matchingElement = habitChildMapRecord.find(
+        (allHabitChildMapRecords) =>
+          allHabitChildMapRecords.child_id === habitMapDialog.child_id &&
+          allHabitChildMapRecords.habit_id === habitMapDialog.habit_id
+      );
+
+      if (matchingElement) {
+        habitMapDialog.habit_child_map_id = matchingElement.habit_child_map_id;
+      }
     });
-
-    // (await this.habitService.findHabitByUserId(userId)).subscribe((habits) => {
-    //   this.habitChildMapData.data = habits;
-    //   this.habitChildMapDataDialog = habits;
-    // });
   }
 
   toggleColumns() {

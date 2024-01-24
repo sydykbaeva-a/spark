@@ -3,7 +3,9 @@
       <mat-dialog-content>
         <input matInput tabindex="1" [(ngModel)]="habitName" placeholder="Brush Teeth" />
         <h1>Choose child</h1>
-        <mat-checkbox *ngFor="let child of children" [(ngModel)]="child.checked">{{child.child_name}}</mat-checkbox>
+        <div *ngFor="let child of children">
+          <mat-checkbox  [(ngModel)]="child.checked">{{child.child_name}}</mat-checkbox>
+        </div>
       </mat-dialog-content>
       <mat-dialog-actions>
         <button mat-button tabindex="2" (click)="chosenChildrenAndAddHabit()">
