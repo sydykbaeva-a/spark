@@ -45,6 +45,10 @@ export class HabitService {
     return await this.habitChildMapRepo.save(habitChildMapEntity);
   }
 
+  async deleteHabitChildMap(habitChildMapId: number) {
+    return await this.habitChildMapRepo.delete(habitChildMapId);
+  }
+
   // Find habits by user id (parent)
   async findHabitsByUser(userId: number): Promise<
     {

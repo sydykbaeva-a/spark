@@ -104,6 +104,14 @@ export class ParentController {
     return await this.habitService.findHabitChildMap();
   }
 
+  @Delete('habit_child_map/:id')
+  async deleteHabitChildMap(
+    @Param('id') habitChildMapId: number,
+  ): Promise<HabitChildMapEntity[]> {
+    await this.habitService.deleteHabitChildMap(habitChildMapId);
+    return await this.habitService.findHabitChildMap();
+  }
+
   // Find habits by user id (parent)
   @Get(':id/habits') //pass a user_id
   async findHabitsByUser(@Param('id') id: number) {
