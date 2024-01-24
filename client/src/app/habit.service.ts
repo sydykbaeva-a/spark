@@ -80,4 +80,10 @@ export class HabitService {
     const httpUrl = this.baseHttpUrl + 'habit_child_map';
     return await this.http.get<IHabitChildMap[]>(httpUrl);
   }
+
+  deleteHabit(habitId: number): Observable<HabitInterface[]> {
+    const httpUrl = this.baseHttpUrl + 'habit_delete';
+    return this.http.delete<HabitInterface[]>(`${httpUrl}/${habitId}`);
+  }
+
 }

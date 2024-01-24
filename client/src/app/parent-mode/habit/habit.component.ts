@@ -7,28 +7,40 @@ import { HabitService } from 'src/app/habit.service';
 import { HabitDialogComponent } from './habit-dialog/habit-dialog.component';
 import { IChild } from 'src/app/child.interface';
 import { lastValueFrom } from 'rxjs';
+import { DataService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-habit',
   templateUrl: './habit.component.html',
-  styleUrls: ['./habit.component.scss'],
+  styleUrls: ['./habit.component.scss']
 })
 export class HabitComponent implements OnInit {
+    public data: any = {};
+
   habitChildMapData = new MatTableDataSource<IHabitChildMap>();
   habitChildMapDataDialog: IHabitChildMap[] = [];
   showAdminColumns: boolean = true;
-  displayedColumnsHabit: string[] = ['habit', 'child_id', 'child_name'];
   currUserId: number = 1;
   children!: IChild[];
 
   constructor(
     private habitService: HabitService,
     private childService: ChildService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dataService: DataService
   ) {}
 
   ngOnInit() {
     this.filterHabitsbyUser();
+    this.fetchChildren();
+  }
+
+  fetchChildren() {
+    this.dataService.getData().subscribe( (data) => {
+        this.data = data;
+        this.children = data;
+        console.log(`HabitComponent: `, data)
+    })
   }
 
   addOrEditHabit(habit?: IHabitChildMap) {
@@ -39,12 +51,17 @@ export class HabitComponent implements OnInit {
       data: { name: this.habitChildMapDataDialog, habitId },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
       this.filterHabitsbyUser();
     });
   }
-  deleteHabit() {}
+  deleteHabit(habitId: number) {
+        this.habitService.deleteHabit(habitId).subscribe(() => {
+          console.log(`Habit deleted successfully`);
+          this.filterHabitsbyUser();
+    })
+  }
 
   async filterHabitsbyUser() {
     this.currUserId = this.childService.getCurrentUserId();
@@ -70,10 +87,31 @@ export class HabitComponent implements OnInit {
     });
   }
 
-  toggleColumns() {
-    this.showAdminColumns = !this.showAdminColumns;
-    this.displayedColumnsHabit = this.showAdminColumns
-      ? ['habit', 'child_id', 'child_name']
-      : ['habit'];
+  onToggleClick(toggleChildId: number ) {
+    if (toggleChildId === 0) {
+        // Handle the "All" case, for example, clear any applied filter
+        this.habitChildMapData.filter = '';
+      } else {
+        this.applyFilter(toggleChildId)
+        // this.dataService.getData().subscribe( (data) => {
+        //     this.data = data;
+        //     console.log(`HabitComponent: `, data)
+        // })
+      }
   }
+
+  applyFilter(childId: number) {
+    const filterValue = childId.toString();
+
+    if (filterValue) {
+      this.habitChildMapData.filterPredicate = (data: IHabitChildMap) => {
+        return data.child_id.toString().includes(filterValue);
+      };
+
+      this.habitChildMapData.filter = filterValue;
+    } else {
+      this.habitChildMapData.filter = ''; // clear filter if value is empty
+    }
+  }
+
 }

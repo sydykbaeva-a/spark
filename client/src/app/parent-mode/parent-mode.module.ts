@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HabitDialogComponent } from './habit/habit-dialog/habit-dialog.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatSlideToggleModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonToggleModule,
   ],
   exports: [
     ChildComponent,
