@@ -3,6 +3,7 @@ import { ChildService } from '../../child.service';
 import { IChild } from '../../child.interface';
 import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
+import { DataService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-child',
@@ -15,7 +16,10 @@ export class ChildComponent implements OnInit {
   userId = 1;
   childName!: string;
   invalidInput: boolean = true;
-  constructor(private childService: ChildService) { }
+  constructor(
+    private childService: ChildService,
+    private dataService: DataService
+    ) { }
 
   ngOnInit() {
     this.chooseUser();
@@ -46,6 +50,7 @@ export class ChildComponent implements OnInit {
     this.childService.addChild(this.userId, child).subscribe(child => {
       console.log(`Add child ID ${this.childName} for parent ${this.userId}: `, child);
       this.childDataSource.data = child;
+      this.dataService.setData( child )
     })
   }
 

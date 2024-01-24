@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ParentModeModule } from './parent-mode/parent-mode.module';
 import { HabitService } from './habit.service';
 import { HttpClientModule } from '@angular/common/http';
+import { DataService } from './shared.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     ParentModeModule,
   ],
-  providers: [ChildService, HabitService],
+  providers: [ChildService, HabitService, DataService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
