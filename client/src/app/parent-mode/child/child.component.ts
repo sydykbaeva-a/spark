@@ -19,19 +19,22 @@ export class ChildComponent implements OnInit {
   constructor(
     private childService: ChildService,
     private dataService: DataService
-    ) { }
+  ) {
+    this.userId = childService.getCurrentUserId();
+  }
 
   ngOnInit() {
-    this.chooseUser();
     this.findChildren();
   }
 
   findChildren() {
-    this.childService.findChildren(this.userId)
-      .subscribe(child_all => {
-        console.log(`Filtered child list for user ID ${this.userId}: `, child_all);
-        this.childDataSource.data = child_all;
-      })
+    this.childService.findChildren(this.userId).subscribe((child_all) => {
+      console.log(
+        `Filtered child list for user ID ${this.userId}: `,
+        child_all
+      );
+      this.childDataSource.data = child_all;
+    });
   }
 
   checkInput() {
@@ -47,11 +50,14 @@ export class ChildComponent implements OnInit {
       child_name: this.childName,
       user_id: this.userId,
     };
-    this.childService.addChild(this.userId, child).subscribe(child => {
-      console.log(`Add child ID ${this.childName} for parent ${this.userId}: `, child);
+    this.childService.addChild(this.userId, child).subscribe((child) => {
+      console.log(
+        `Add child ID ${this.childName} for parent ${this.userId}: `,
+        child
+      );
       this.childDataSource.data = child;
-      this.dataService.setData( child )
-    })
+      this.dataService.setData(child);
+    });
   }
 
   deleteChild(childId: number, childDelete: boolean) {
@@ -59,38 +65,24 @@ export class ChildComponent implements OnInit {
       console.log(`Child deleted successfully`);
       childDelete = false;
       this.findChildren();
-    })
+    });
   }
 
   editChild(childId: number, childName: string, iChild: IChild) {
-    this.childService.editChild(
-      this.userId,
-      childId,
-      childName
-    )
-      .subscribe(child => {
+    this.childService
+      .editChild(this.userId, childId, childName)
+      .subscribe((child) => {
         console.log(`Edit child ID ${childId} of children: `, child);
         iChild.child_edit = false;
-      })
+      });
   }
 
   onEdit(item: any) {
     console.log(`this.childDataSource.data: `, this.childDataSource.data);
 
-    this.childDataSource.data.forEach(element => {
+    this.childDataSource.data.forEach((element) => {
       element.child_edit = false;
-    })
+    });
     item.child_edit = true;
-  }
-
-  chooseUser() {
-    let user = prompt('Choose userId: ', '1');
-    if (user == null) {
-      console.log('Error with user');
-    } else {
-      this.userId = Number(user);
-      this.childService.setCurrentUserId(this.userId);
-      this.findChildren();
-    }
   }
 }

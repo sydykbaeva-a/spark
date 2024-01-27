@@ -85,5 +85,4 @@ export class HabitService {
     const httpUrl = this.baseHttpUrl + 'habit_delete';
     return this.http.delete<HabitInterface[]>(`${httpUrl}/${habitId}`);
   }
-
 }
