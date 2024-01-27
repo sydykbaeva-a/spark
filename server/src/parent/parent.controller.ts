@@ -12,6 +12,7 @@ import { ChildService } from 'src/child/child.service';
 import { HabitEntity } from 'src/habit/habit.entity';
 import { HabitService } from 'src/habit/habit.service';
 import { HabitChildMapEntity } from 'src/habit/habit_child_map.entity';
+import { ParentEntity } from './parent.entity';
 
 @Controller('parent')
 export class ParentController {
@@ -116,5 +117,16 @@ export class ParentController {
   @Get(':id/habits') //pass a user_id
   async findHabitsByUser(@Param('id') id: number) {
     return await this.habitService.findHabitsByUser(id);
+  }
+
+  @Post('user_add')
+  async addUser(@Body() user: ParentEntity) {
+    await this.childService.addUser(user);
+    return await this.childService.findUsers();
+  }
+
+  @Get('users')
+  async findUsers() {
+    return await this.childService.findUsers();
   }
 }

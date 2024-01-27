@@ -6,7 +6,7 @@ export class ParentEntity {
   user_id: number;
 
   @Column()
-  fist_name: string;
+  first_name: string;
 
   @Column()
   last_name: string;
