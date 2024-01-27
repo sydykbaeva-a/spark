@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IChild } from './child.interface';
-import { Observable, catchError, tap } from 'rxjs';
+import { Observable, catchError, lastValueFrom, tap } from 'rxjs';
+import { IUser } from './parent.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -65,9 +66,15 @@ export class ChildService {
   ): Observable<IChild[]> {
     const childNameObj: IChild = {
       child_name: childName,
-      user_id: userId
+      user_id: userId,
     };
     const httpUrl = this.baseHttpUrl + userId + '/child_edit';
     return this.http.patch<IChild[]>(`${httpUrl}/${childId}`, childNameObj);
+  }
+
+  async addUser(user: IUser): Promise<IUser[]> {
+    const http = this.baseHttpUrl + 'user_add';
+    const users = await this.http.post<IUser[]>(http, user);
+    return lastValueFrom(users);
   }
 }

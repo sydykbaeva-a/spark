@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { lastValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { IChild } from 'src/app/child.interface';
 import { ChildService } from 'src/app/child.service';
 import { IHabitChildMap } from 'src/app/habit-child-map.interface';
@@ -76,7 +75,7 @@ export class HabitDialogComponent {
       (await this.habitService.editHabit(this.data.habitId, habit)).subscribe();
 
       // delete Record
-      this.previoslyCheckedChildIds.forEach(async (i) => {
+      for (const i of this.previoslyCheckedChildIds) {
         const isChildStillChecked = currentlyCheckedChildren.find(
           (child) => child.child_id === i
         );
@@ -91,7 +90,7 @@ export class HabitDialogComponent {
           const s2 = await lastValueFrom(s);
           console.log('delete child');
         }
-      });
+      }
 
       // add new Record
       let newChosenChildren: IChild[] = [];
@@ -134,7 +133,8 @@ export class HabitDialogComponent {
       });
     });
 
-    (await this.habitService.addHabitChildMap(habitMap)).subscribe(() => {});
+    const s = await this.habitService.addHabitChildMap(habitMap);
+    const s2 = await firstValueFrom(s);
     console.log('add actual child');
     this.dialogRef.close();
   }
