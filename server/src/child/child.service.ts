@@ -2,12 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { ChildEntity } from './child.entity';
+import { ParentEntity } from 'src/parent/parent.entity';
 
 @Injectable()
 export class ChildService {
   constructor(
     @InjectRepository(ChildEntity)
     private readonly childRepo: Repository<ChildEntity>,
+    @InjectRepository(ParentEntity)
+    private readonly parentRepo: Repository<ParentEntity>,
   ) {}
 
   async find(userId: number): Promise<ChildEntity[]> {
@@ -29,5 +32,13 @@ export class ChildService {
 
   async delete(id): Promise<DeleteResult> {
     return await this.childRepo.delete(id);
+  }
+
+  async addUser(userEntity: ParentEntity) {
+    return await this.parentRepo.save(userEntity);
+  }
+
+  async findUsers(): Promise<ParentEntity[]> {
+    return await this.parentRepo.find();
   }
 }
