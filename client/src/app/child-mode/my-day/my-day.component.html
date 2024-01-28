@@ -1,1 +1,60 @@
-<p>child-mode works!</p>
+<body class="m-3 mb-8">
+  <mat-button-toggle-group aria-label="Children Toggle">
+    <mat-button-toggle [value]="'All'" (click)="onToggleClick(0)"
+      >ALL</mat-button-toggle
+    >
+    <mat-button-toggle
+      *ngFor="let child of children"
+      [value]="child.child_name"
+      (click)="onToggleClick(child.child_id!)"
+    >
+      {{ child.child_name }}
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <div class="row">
+    <div
+      *ngFor="let habit of habitChildMap; let i = index"
+      class="card-wrapper col-lg-4 col-md-6 col-sm-12 mb-4"
+    >
+      <div
+        class="card card-rotating text-center"
+        [style]="getColorStyle(i)"
+        [class.flipped]="habit.habit_status"
+        (click)="
+          handleClick(i, habit);
+          habit.habit_status ? audioPlayer.play() : audioPlayer2.play()
+        "
+        [changeClass]="[
+          'animate__animated',
+          'animate__flipInY',
+          'animate__fast'
+        ]"
+      >
+        <div class="face front">
+          <a class="btn btn-primary rotate-btn"
+            >{{ habit.child_id }} | {{ habit.habit_id }} |
+            {{ habit.habit_status }}<br />I did it!</a
+          >
+          <h1 class="card-title">{{ habit.habit_name }}</h1>
+        </div>
+
+        <div class="face back">
+          <a class="btn btn-primary rotate-btn"
+            >{{ habit.child_id }} | {{ habit.habit_id }} |
+            {{ habit.habit_status }}<br />I didn't do it yet!</a
+          >
+          <h1 class="card-title">{{ habit.habit_name }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <audio #audioPlayer controls>
+    <source src="./assets/card-flip01.mp3" type="audio/mp3" />
+    Your browser does not support the audio element.
+  </audio>
+  <audio #audioPlayer2 controls>
+    <source src="./assets/card-flip02.mp3" type="audio/mp3" />
+    Your browser does not support the audio element.
+  </audio>
+</body>

@@ -7,15 +7,14 @@ import { HabitService } from 'src/app/habit.service';
 import { HabitDialogComponent } from './habit-dialog/habit-dialog.component';
 import { IChild } from 'src/app/child.interface';
 import { lastValueFrom } from 'rxjs';
-import { DataService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-habit',
   templateUrl: './habit.component.html',
-  styleUrls: ['./habit.component.scss']
+  styleUrls: ['./habit.component.scss'],
 })
 export class HabitComponent implements OnInit {
-    public data: any = {};
+  public data: any = {};
 
   habitChildMapData = new MatTableDataSource<IHabitChildMap>();
   habitChildMapDataDialog: IHabitChildMap[] = [];
@@ -26,21 +25,22 @@ export class HabitComponent implements OnInit {
   constructor(
     private habitService: HabitService,
     private childService: ChildService,
-    private dialog: MatDialog,
-    private dataService: DataService
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
     this.filterHabitsbyUser();
-    this.fetchChildren();
+    this.findChildren();
   }
 
-  fetchChildren() {
-    this.dataService.getData().subscribe( (data) => {
-        this.data = data;
-        this.children = data;
-        console.log(`HabitComponent: `, data)
-    })
+  findChildren() {
+    this.childService.findChildren(this.currUserId).subscribe((child_all) => {
+      console.log(
+        `Filtered child list for user ID ${this.currUserId}: `,
+        child_all
+      );
+      this.children = child_all;
+    });
   }
 
   addOrEditHabit(habit?: IHabitChildMap) {
@@ -57,10 +57,10 @@ export class HabitComponent implements OnInit {
     });
   }
   deleteHabit(habitId: number) {
-        this.habitService.deleteHabit(habitId).subscribe(() => {
-          console.log(`Habit deleted successfully`);
-          this.filterHabitsbyUser();
-    })
+    this.habitService.deleteHabit(habitId).subscribe(() => {
+      console.log(`Habit deleted successfully`);
+      this.filterHabitsbyUser();
+    });
   }
 
   async filterHabitsbyUser() {
@@ -87,17 +87,12 @@ export class HabitComponent implements OnInit {
     });
   }
 
-  onToggleClick(toggleChildId: number ) {
+  onToggleClick(toggleChildId: number) {
     if (toggleChildId === 0) {
-        // Handle the "All" case, for example, clear any applied filter
-        this.habitChildMapData.filter = '';
-      } else {
-        this.applyFilter(toggleChildId)
-        // this.dataService.getData().subscribe( (data) => {
-        //     this.data = data;
-        //     console.log(`HabitComponent: `, data)
-        // })
-      }
+      this.habitChildMapData.filter = '';
+    } else {
+      this.applyFilter(toggleChildId);
+    }
   }
 
   applyFilter(childId: number) {
@@ -113,5 +108,4 @@ export class HabitComponent implements OnInit {
       this.habitChildMapData.filter = ''; // clear filter if value is empty
     }
   }
-
 }

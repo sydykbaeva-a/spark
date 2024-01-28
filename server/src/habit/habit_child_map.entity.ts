@@ -8,6 +8,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { HabitEntity } from './habit.entity';
 
 @Entity('habit_child_map')
 export class HabitChildMapEntity {
@@ -23,9 +24,11 @@ export class HabitChildMapEntity {
   @Column()
   habit_status: boolean;
 
-  @ManyToOne(() => ChildEntity, (child) => child.habitMap)
-  @JoinColumn({
-    name: 'child_id',
-  })
-  children: ChildEntity[];
+  @ManyToOne(() => HabitEntity, (habit) => habit.habitChildMap)
+  @JoinColumn({ name: 'habit_id' })
+  habit: HabitEntity;
+
+  @ManyToOne(() => ChildEntity, (child) => child.habitChildMap)
+  @JoinColumn({ name: 'child_id' })
+  child: ChildEntity;
 }

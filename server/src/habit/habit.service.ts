@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { HabitEntity } from './habit.entity';
 import { Repository } from 'typeorm';
 import { HabitChildMapEntity } from './habit_child_map.entity';
+import { ChildEntity } from 'src/child/child.entity';
 
 @Injectable()
 export class HabitService {
@@ -11,6 +12,8 @@ export class HabitService {
     private readonly habitRepo: Repository<HabitEntity>,
     @InjectRepository(HabitChildMapEntity)
     private readonly habitChildMapRepo: Repository<HabitChildMapEntity>,
+    @InjectRepository(ChildEntity)
+    private readonly childRepo: Repository<ChildEntity>,
   ) {}
 
   // Habit methods
@@ -49,6 +52,40 @@ export class HabitService {
     return await this.habitChildMapRepo.delete(habitChildMapId);
   }
 
+  async findOneHabitChildMap(childId: number, habitId: number) {
+    return await this.habitChildMapRepo.findOne({
+      where: { child_id: childId, habit_id: habitId },
+    });
+  }
+
+  async updateHabitChildMap(
+    habitChildMapId: number,
+    habitChildMapEntity: HabitChildMapEntity,
+  ) {
+    return await this.habitChildMapRepo.update(
+      habitChildMapId,
+      habitChildMapEntity,
+    );
+  }
+
+  async updateHabitChildMapById(
+    childId: number,
+    habitId: number,
+    habitChildMapEntity: HabitChildMapEntity,
+  ) {
+    const habitChildMapRecord = await this.findOneHabitChildMap(
+      childId,
+      habitId,
+    );
+    if (habitChildMapRecord) {
+      const habitChildMapId = habitChildMapRecord.habit_child_map_id;
+      return await this.updateHabitChildMap(
+        habitChildMapId,
+        habitChildMapEntity,
+      );
+    }
+  }
+
   // Find habits by user id (parent)
   async findHabitsByUser(userId: number): Promise<
     {
@@ -58,14 +95,16 @@ export class HabitService {
     }[]
   > {
     const habitsByUser = await this.habitRepo
-      .createQueryBuilder('habitEntity')
-      .innerJoinAndSelect('habitEntity.children', 'childEntity')
-      .where('childEntity.user_id = :userId', { userId })
+      .createQueryBuilder('habit')
+      .leftJoinAndSelect('habit.habitChildMap', 'habitChildMap')
+      .leftJoinAndSelect('habitChildMap.child', 'child')
+      .where('child.user_id = :userId', { userId })
       .select([
-        'habitEntity.habit_id AS habit_id',
-        'habitEntity.habit_name AS habit_name',
-        'childEntity.child_id AS child_id',
-        'childEntity.child_name AS child_name',
+        'habit.habit_id AS habit_id',
+        'habit.habit_name AS habit_name',
+        'child.child_id AS child_id',
+        'child.child_name AS child_name',
+        'habitChildMap.habit_status AS habit_status',
       ])
       .getRawMany();
 
@@ -80,6 +119,7 @@ export class HabitService {
       habit_name: result.habit_name,
       child_id: result.child_id,
       child_name: result.child_name,
+      habit_status: result.habit_status, //new
     }));
   }
 }

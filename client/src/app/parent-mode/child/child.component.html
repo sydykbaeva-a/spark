@@ -1,14 +1,30 @@
 <div class="add-child-input">
   <mat-form-field>
     <mat-label>Child Name</mat-label>
-    <input matInput placeholder="Andy" [(ngModel)]="childName" (input)="checkInput()" required>
+    <input
+      matInput
+      placeholder="Andy"
+      [(ngModel)]="childName"
+      (input)="checkInput()"
+      required
+    />
   </mat-form-field>
-  <button mat-raised-button style="background-color: rgb(77, 186, 120); color:white" [disabled]="invalidInput"
-    (click)="addingChild()">Add Child</button>
+  <button
+    mat-raised-button
+    style="background-color: rgb(77, 186, 120); color: white"
+    [disabled]="invalidInput"
+    (click)="addingChild()"
+  >
+    Add Child
+  </button>
 </div>
-<table mat-table [dataSource]="childDataSource" class="mat-elevation-z8 child-table">
+<table
+  mat-table
+  [dataSource]="childDataSource"
+  class="mat-elevation-z8 child-table"
+>
   <ng-container matColumnDef="child_name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <th mat-header-cell *matHeaderCellDef>Name</th>
     <td mat-cell *matCellDef="let c">
       <div *ngIf="c.child_edit">
         <input type="text" [(ngModel)]="c.child_name" />
@@ -19,15 +35,40 @@
     </td>
   </ng-container>
   <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <th mat-header-cell *matHeaderCellDef>Action</th>
     <td mat-cell *matCellDef="let c">
-      <button *ngIf="!c.child_edit" mat-button (click)="onEdit(c)" style="color:blue"><mat-icon>edit</mat-icon></button>
-      <button *ngIf="!c.child_edit" mat-button (click)="deleteChild(c.child_id, c.child_edit)"
-        style="color:red"><mat-icon>delete</mat-icon></button>
-      <button *ngIf="c.child_edit" mat-button (click)="editChild(c.child_id!, c.child_name!, c)"
-        style="color:green"><mat-icon>check_circle</mat-icon></button>
-      <button *ngIf="c.child_edit" mat-button (click)="c.child_edit = false"
-        style="color:grey"><mat-icon>cancel</mat-icon></button>
+      <button
+        *ngIf="!c.child_edit"
+        mat-button
+        (click)="onEdit(c)"
+        style="color: blue"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        *ngIf="!c.child_edit"
+        mat-button
+        (click)="deleteChild(c.child_id, c.child_edit)"
+        style="color: red"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button
+        *ngIf="c.child_edit"
+        mat-button
+        (click)="editChild(c.child_id!, c.child_name!, c)"
+        style="color: green"
+      >
+        <mat-icon>check_circle</mat-icon>
+      </button>
+      <button
+        *ngIf="c.child_edit"
+        mat-button
+        (click)="c.child_edit = false"
+        style="color: grey"
+      >
+        <mat-icon>cancel</mat-icon>
+      </button>
     </td>
   </ng-container>
 
