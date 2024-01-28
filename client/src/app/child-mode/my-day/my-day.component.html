@@ -14,16 +14,16 @@
 
   <div class="row">
     <div
-      *ngFor="let habit of habitChildMap; let i = index"
+      *ngFor="let habitMapRecord of habitChildMap; let i = index"
       class="card-wrapper col-lg-4 col-md-6 col-sm-12 mb-4"
     >
       <div
         class="card card-rotating text-center"
         [style]="getColorStyle(i)"
-        [class.flipped]="habit.habit_status"
+        [class.flipped]="habitMapRecord.habit_status"
         (click)="
-          handleClick(i, habit);
-          habit.habit_status ? audioPlayer.play() : audioPlayer2.play()
+          handleClick(habitMapRecord);
+          habitMapRecord.habit_status ? audioPlayer.play() : audioPlayer2.play()
         "
         [changeClass]="[
           'animate__animated',
@@ -33,18 +33,18 @@
       >
         <div class="face front">
           <a class="btn btn-primary rotate-btn"
-            >{{ habit.child_id }} | {{ habit.habit_id }} |
-            {{ habit.habit_status }}<br />I did it!</a
+            >{{ habitMapRecord.child_id }} | {{ habitMapRecord.habit_id }} |
+            {{ habitMapRecord.habit_status }}<br />I did it!</a
           >
-          <h1 class="card-title">{{ habit.habit_name }}</h1>
+          <h1 class="card-title">{{ habitMapRecord.habit_name }}</h1>
         </div>
 
         <div class="face back">
           <a class="btn btn-primary rotate-btn"
-            >{{ habit.child_id }} | {{ habit.habit_id }} |
-            {{ habit.habit_status }}<br />I didn't do it yet!</a
+            >{{ habitMapRecord.child_id }} | {{ habitMapRecord.habit_id }} |
+            {{ habitMapRecord.habit_status }}<br />I didn't do it yet!</a
           >
-          <h1 class="card-title">{{ habit.habit_name }}</h1>
+          <h1 class="card-title">{{ habitMapRecord.habit_name }}</h1>
         </div>
       </div>
     </div>
