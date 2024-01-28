@@ -33,24 +33,30 @@ export class MyDayComponent implements OnInit {
     return `background-color: ${this.colors[colorIndex]}`;
   }
 
-  handleClick(index: number, habit: any) {
-    this.editHabitChildMap(habit.child_id, habit.habit_id, !habit.habit_status);
-    habit.habit_status = !habit.habit_status;
+  handleClick(habitMapRecord: IHabitChildMap) {
+    this.editHabitChildMap(
+      habitMapRecord.child_id,
+      habitMapRecord.habit_id,
+      !habitMapRecord.habit_status
+    );
+    habitMapRecord.habit_status = !habitMapRecord.habit_status;
 
     console.log(
       `handleClick() > value of this.isClicked for habitChildMap table: `,
-      habit
+      habitMapRecord
     );
 
-    this.checkAllHabitStatusTrue(habit.child_id);
+    this.checkAllHabitStatusTrue(habitMapRecord.child_id);
   }
 
   checkAllHabitStatusTrue(childId: number): boolean {
     // Filter the habitChildMap based on the given child_id
     const filteredHabits = this.habitChildMap.filter(
-      (habit) => habit.child_id === childId
+      (habitMapRecord) => habitMapRecord.child_id === childId
     );
-    const allHabitsDone = filteredHabits.every((habit) => habit.habit_status);
+    const allHabitsDone = filteredHabits.every(
+      (habitMapRecord) => habitMapRecord.habit_status
+    );
     if (allHabitsDone) {
       console.log(
         `Congrats! all habits for child_id of ${childId} is ${allHabitsDone}`
@@ -58,7 +64,7 @@ export class MyDayComponent implements OnInit {
     }
 
     // Check if habit_status is true for all filtered habits
-    return filteredHabits.every((habit) => habit.habit_status);
+    return allHabitsDone;
   }
 
   findChildren() {
@@ -73,8 +79,10 @@ export class MyDayComponent implements OnInit {
 
   async filterHabitsbyUser() {
     const habits = await this.habitService.findHabitByUserId(this.currUserId);
+
     this.originalHabitChildMap = await lastValueFrom(habits);
     this.habitChildMap = [...this.originalHabitChildMap]; // Make a copy
+
     console.log(
       `Filtered habit list for user ID: ${this.currUserId}`,
       this.habitChildMap
@@ -87,33 +95,21 @@ export class MyDayComponent implements OnInit {
       'onToggleClick > this.habitChildMap.length = ',
       this.habitChildMap.length
     );
-    if (toggleChildId === 0) {
-      this.habitChildMap = [...this.originalHabitChildMap]; // Reset to original
-    } else {
-      console.log(
-        'onToggleClick > toggleChildId is NOT 0 so applyFilter with toggleChildId = ',
-        toggleChildId
-      );
-      this.applyFilter(toggleChildId);
-    }
+    console.log(
+      'onToggleClick > toggleChildId is NOT 0 so applyFilter with toggleChildId = ',
+      toggleChildId
+    );
+    this.applyFilter(toggleChildId);
   }
 
   applyFilter(childId: number) {
     this.habitChildMap = [...this.originalHabitChildMap]; // Reset to original
-    console.log(
-      'applyFilter() > this.habitChildMap.length = ',
-      this.habitChildMap.length
-    );
-    const filterValue = childId.toString();
+
+    const filterValue = childId;
 
     if (filterValue && this.habitChildMap.length > 0) {
-      console.log('applyFilter() > BEFORE applying filter', this.habitChildMap);
       this.habitChildMap = this.habitChildMap.filter((data) => {
-        console.log(
-          'applyFilter() > AFTER applying filter',
-          data.child_id.toString().includes(filterValue)
-        );
-        return data.child_id.toString().includes(filterValue);
+        return data.child_id === filterValue ? true : false;
       });
     }
   }
