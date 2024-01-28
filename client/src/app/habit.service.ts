@@ -81,6 +81,27 @@ export class HabitService {
     return await this.http.get<IHabitChildMap[]>(httpUrl);
   }
 
+  editHabitChildMap(
+    childId: number,
+    habitId: number,
+    habitStatus: boolean
+  ): Observable<IHabitChildMap[]> {
+    const httpUrl = this.baseHttpUrl + 'habit_child_map';
+    return this.http
+      .patch<IHabitChildMap[]>(`${httpUrl}/child/${childId}/habit/${habitId}`, {
+        habit_status: habitStatus,
+      })
+      .pipe(
+        tap((response) =>
+          console.log(`HabitService > editHabitChildMap: `, response)
+        ),
+        catchError((error) => {
+          console.log('Error on editing habit child map');
+          return [];
+        })
+      );
+  }
+
   deleteHabit(habitId: number): Observable<HabitInterface[]> {
     const httpUrl = this.baseHttpUrl + 'habit_delete';
     return this.http.delete<HabitInterface[]>(`${httpUrl}/${habitId}`);

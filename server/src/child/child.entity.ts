@@ -1,4 +1,5 @@
 import { HabitEntity } from 'src/habit/habit.entity';
+import { HabitChildMapEntity } from 'src/habit/habit_child_map.entity';
 import {
   Column,
   Entity,
@@ -18,6 +19,6 @@ export class ChildEntity {
   @Column()
   user_id: number;
 
-  @ManyToMany(() => HabitEntity, (habit) => habit.children)
-  habitMap: HabitEntity[];
+  @OneToMany(() => HabitChildMapEntity, (habitChildMap) => habitChildMap.child)
+  habitChildMap: HabitChildMapEntity[];
 }

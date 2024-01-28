@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+}
+
+//audio
+audio {
+  display: none;
+}
+
+//animated cards
+.row {
+  margin-top: 20px;
+}
+.card {
+  border: 0 !important;
+  border-radius: 1.25rem !important;
+  box-shadow: 0 10px 20px 2px #181a28 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  background-clip: border-box !important;
+  height: 300px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.card-img {
+  width: 250%;
+  height: 250%;
+  object-fit: cover;
+
+  transform: translate(-50%, -50%);
+  transform: scale(1);
+  vertical-align: middle;
+}
+
+.card-body {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1.25rem;
+  color: white;
+}
+.card-title {
+  font-size: 2rem !important;
+  color: white !important;
+  margin-top: 5px;
+}
+.card-text {
+  display: none;
+}
+
+.face {
+  background: initial !important;
+}
+.btn-primary {
+  border-radius: 20px;
+}
+.front .btn-primary {
+  background-color: limegreen !important;
+}
+
+.back .btn-primary {
+  background-color: rgb(120, 11, 11) !important;
+}

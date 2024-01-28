@@ -113,6 +113,28 @@ export class ParentController {
     return await this.habitService.findHabitChildMap();
   }
 
+  @Patch('habit_child_map/child/:childId/habit/:habitId')
+  async updateHabitChildMap(
+    @Param('childId') childId: number,
+    @Param('habitId') habitId: number,
+    @Body() habitChildMapEntity: HabitChildMapEntity,
+  ): Promise<HabitChildMapEntity[]> {
+    await this.habitService.updateHabitChildMapById(
+      childId,
+      habitId,
+      habitChildMapEntity,
+    );
+    return await this.habitService.findHabitChildMap();
+  }
+
+  @Get('one_habit_child_map/child/:childId/habit/:habitId')
+  async findOneHabitChildMap(
+    @Param('childId') childId: number,
+    @Param('habitId') habitId: number,
+  ): Promise<HabitChildMapEntity> {
+    return await this.habitService.findOneHabitChildMap(childId, habitId);
+  }
+
   // Find habits by user id (parent)
   @Get(':id/habits') //pass a user_id
   async findHabitsByUser(@Param('id') id: number) {

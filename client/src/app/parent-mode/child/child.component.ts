@@ -34,6 +34,7 @@ export class ChildComponent implements OnInit {
         child_all
       );
       this.childDataSource.data = child_all;
+      this.dataService.setData(child_all);
     });
   }
 

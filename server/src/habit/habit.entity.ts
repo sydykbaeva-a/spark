@@ -4,8 +4,10 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { HabitChildMapEntity } from './habit_child_map.entity';
 
 @Entity('habit')
 export class HabitEntity {
@@ -15,11 +17,6 @@ export class HabitEntity {
   @Column()
   habit_name: string;
 
-  @ManyToMany(() => ChildEntity, (child) => child.habitMap)
-  @JoinTable({
-    name: 'habit_child_map',
-    joinColumn: { name: 'habit_id' },
-    inverseJoinColumn: { name: 'child_id' },
-  })
-  children: ChildEntity[];
+  @OneToMany(() => HabitChildMapEntity, (habitChildMap) => habitChildMap.habit)
+  habitChildMap: HabitChildMapEntity[];
 }

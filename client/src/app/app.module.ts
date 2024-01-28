@@ -8,6 +8,7 @@ import { ParentModeModule } from './parent-mode/parent-mode.module';
 import { HabitService } from './habit.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './shared.service';
+import { ChildModeModule } from './child-mode/child-mode.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { DataService } from './shared.service';
     BrowserModule,
     HttpClientModule,
     ParentModeModule,
+    ChildModeModule,
   ],
   providers: [ChildService, HabitService, DataService],
   bootstrap: [AppComponent],
