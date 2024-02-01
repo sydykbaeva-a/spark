@@ -1,11 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { lastValueFrom } from 'rxjs';
 import { IChild } from 'src/app/child.interface';
 import { ChildService } from 'src/app/child.service';
 import { IHabitChildMap } from 'src/app/habit-child-map.interface';
 import { HabitService } from 'src/app/habit.service';
 import { IUser } from 'src/app/parent.interface';
+import { MyDayDialogComponent } from '../my-day-dialog/my-day-dialog.component';
 
 @Component({
   selector: 'app-my-day',
@@ -13,7 +25,13 @@ import { IUser } from 'src/app/parent.interface';
   styleUrls: ['./my-day.component.scss'],
 })
 export class MyDayComponent implements OnInit {
-  colors = ['#d06ab2', '#009aff', '#de768c', '#d358ff'];
+  // colors = ['#d06ab2', '#009aff', '#de768c', '#d358ff'];
+  colors = [
+    'rgb(208 106 178 / 90%)',
+    'rgb(0 154 255 / 90%)',
+    'rgb(222 118 140 / 90%)',
+    'rgb(211 88 255 / 90%)',
+  ];
 
   habitChildMap: IHabitChildMap[] = [];
   originalHabitChildMap: IHabitChildMap[] = [];
@@ -25,7 +43,10 @@ export class MyDayComponent implements OnInit {
   constructor(
     private childService: ChildService,
     private habitService: HabitService,
-    private router: Router
+    private router: Router,
+    private el: ElementRef,
+    private renderer: Renderer2,
+    private dialog: MatDialog
   ) {
     this.currUserId = this.childService.getCurrentUserId();
   }
@@ -33,6 +54,16 @@ export class MyDayComponent implements OnInit {
   ngOnInit(): void {
     this.filterHabitsbyUser();
     this.findChildren();
+  }
+
+  openDialog() {
+    let dialogRef = setTimeout(
+      () =>
+        this.dialog.open(MyDayDialogComponent, {
+          width: '600px',
+        }),
+      2000
+    );
   }
 
   getColorStyle(index: number): string {
@@ -81,6 +112,8 @@ export class MyDayComponent implements OnInit {
       (habitMapRecord) => habitMapRecord.habit_status
     );
     if (allHabitsDone) {
+      this.triggerConfetti();
+      this.openDialog();
       console.log(
         `Congrats! all habits for child_id of ${childId} is ${allHabitsDone}`
       );
@@ -90,7 +123,51 @@ export class MyDayComponent implements OnInit {
     return allHabitsDone;
   }
 
+  triggerConfetti(): void {
+    const script = this.renderer.createElement('script');
+    script.type = 'text/javascript';
+    script.text = `
+    const end = Date.now() + 15 * 1000;
+
+// go Buckeyes!
+// const colors = ["#bb0000", "#ffffff"];
+const colors = ['#d06ab2', '#009aff', '#de768c', '#d358ff'];
+
+
+(function frame() {
+  confetti({
+    particleCount: 2,
+    angle: 60,
+    spread: 55,
+    origin: { x: 0 },
+    colors: colors,
+  });
+
+  confetti({
+    particleCount: 2,
+    angle: 120,
+    spread: 55,
+    origin: { x: 1 },
+    colors: colors,
+  });
+
+  if (Date.now() < end) {
+    requestAnimationFrame(frame);
+  }
+})();
+
+    // confetti({
+    //   particleCount: 100,
+    //   spread: 70,
+    //   origin: { y: 0.6 },
+    // });
+    
+    `;
+    this.renderer.appendChild(this.el.nativeElement, script);
+  }
+
   findChildren() {
+    console.log(`MyDayComponent > what is this.currUserId?`, this.currUserId);
     this.childService.findChildren(this.currUserId).subscribe((child_all) => {
       console.log(
         `Filtered child list for user ID ${this.currUserId}: `,

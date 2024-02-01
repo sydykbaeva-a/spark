@@ -1,16 +1,46 @@
 <ol>
   <h1 mat-dialog-title>Habit Name</h1>
-      <mat-dialog-content>
-        <input matInput tabindex="1" [(ngModel)]="habitName" placeholder="Brush Teeth" />
-        <h1>Choose child</h1>
-        <div *ngFor="let child of children">
-          <mat-checkbox  [(ngModel)]="child.checked">{{child.child_name}}</mat-checkbox>
-        </div>
-      </mat-dialog-content>
-      <mat-dialog-actions>
-        <button mat-button tabindex="2" (click)="chosenChildrenAndAddHabit()">
-        Ok
-        </button>
-        <button mat-button (click)="onNoClick()" tabindex="-1">No Thanks</button>
-      </mat-dialog-actions>
+  <mat-dialog-content>
+    <!-- <input matInput tabindex="1" [(ngModel)]="habitName" placeholder="Brush Teeth" /> -->
+
+    <input
+      matInput
+      tabindex="1"
+      [(ngModel)]="habitName"
+      [placeholder]="aiHabitPlaceholder"
+    />
+    <button
+      mat-button
+      tabindex="3"
+      (click)="openAiHabits()"
+      mat-raised-button
+      style="background-color: rgb(101, 15, 101); color: white"
+    >
+      <img
+        class="icon"
+        src="https://i.imgur.com/cP9vvAd.png"
+        style="
+          width: 30px;
+          background: none;
+          padding: 0;
+          border: 0;
+          cursor: pointer;
+        "
+      />
+      AI Habit Ideas
+    </button>
+
+    <h1>Choose child</h1>
+    <div *ngFor="let child of children">
+      <mat-checkbox [(ngModel)]="child.checked">{{
+        child.child_name
+      }}</mat-checkbox>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button tabindex="2" (click)="chosenChildrenAndAddHabit()">
+      Ok
+    </button>
+    <button mat-button (click)="onNoClick()" tabindex="-1">No Thanks</button>
+  </mat-dialog-actions>
 </ol>

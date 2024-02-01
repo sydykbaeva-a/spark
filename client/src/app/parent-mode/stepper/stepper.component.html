@@ -1,40 +1,48 @@
-<mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!">
+<mat-stepper
+  class="example-stepper"
+  [orientation]="(stepperOrientation | async)!"
+>
+  <mat-step [stepControl]="firstFormGroup" label="Add child">
+    <form [formGroup]="firstFormGroup" class="child-form">
+      <app-child></app-child>
+      <div>
+        <button class="next-button" mat-raised-button matStepperNext>
+          Next
+        </button>
+      </div>
+    </form>
+  </mat-step>
 
-    <mat-step [stepControl]="firstFormGroup" label="Add child">
-        <form [formGroup]="firstFormGroup" class="child-form">
-            <app-child></app-child>
-            <div>
-                <button class="next-button" mat-raised-button matStepperNext>Next</button>
-            </div>
-        </form>
-    </mat-step>
+  <mat-step [stepControl]="secondFormGroup" label="Add Habits">
+    <form [formGroup]="secondFormGroup">
+      <app-habit></app-habit>
 
-    <mat-step [stepControl]="secondFormGroup" label="Add Habits">
-        <form [formGroup]="secondFormGroup">
-            <app-habit></app-habit>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
 
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-            </div>
-
-        </form>
-    </mat-step>
-
-    <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <div class="done-setup">
-            <h2>All done!</h2>
-            <p>Now that you've added habits for your children, click on the button below so they can start their daily
-                adventure of tracking their habits!</p>
-            <button mat-raised-button style="background:#4eba78; color: white" (click)="enterChildMode()">
-                <mat-icon>child_care</mat-icon>
-                Enter Child Mode
-            </button>
-        </div>
-        <div>
-            <button mat-button matStepperPrevious>Back</button>
-        </div>
-    </mat-step>
-
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <div class="done-setup">
+      <h2>All done!</h2>
+      <p>
+        Now that you've added habits for your children, click on the button
+        below so they can start their daily adventure of tracking their habits!
+      </p>
+      <button
+        mat-raised-button
+        style="background: #4eba78; color: white"
+        (click)="enterChildMode()"
+      >
+        <mat-icon>child_care</mat-icon>
+        Enter Child Mode
+      </button>
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+    </div>
+  </mat-step>
 </mat-stepper>

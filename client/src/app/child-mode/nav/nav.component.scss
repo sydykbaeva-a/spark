@@ -1,0 +1,19 @@
+.navbar {
+  position: fixed;
+  bottom: 0;
+  background-color: #5353c5;
+  width: 100%;
+  box-shadow: 0px -8px 18px 2px #00000070;
+  height: 75px;
+  z-index: 99;
+}
+
+.mdc-tab__text-label {
+  color: white;
+}
+.mat-icon {
+  color: white;
+}
+.mat-badge-medium.mat-badge-above .mat-badge-content {
+  top: -25px;
+}

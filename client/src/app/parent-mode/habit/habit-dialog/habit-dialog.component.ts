@@ -6,6 +6,7 @@ import { ChildService } from 'src/app/child.service';
 import { IHabitChildMap } from 'src/app/habit-child-map.interface';
 import { HabitInterface } from 'src/app/habit.interface';
 import { HabitService } from 'src/app/habit.service';
+import { IChatRequest } from '../../../../../../server/src/ai-assist/model/openai.interface';
 
 @Component({
   selector: 'app-habit-dialog',
@@ -19,6 +20,8 @@ export class HabitDialogComponent {
   editMode = false;
   previoslyCheckedChildIds: number[] = [];
   listOfHabitAndChildMap: IHabitChildMap[] = [];
+
+  aiHabitPlaceholder: string = 'Brush teeth'; //new
 
   constructor(
     public dialogRef: MatDialogRef<HabitDialogComponent>,
@@ -142,4 +145,46 @@ export class HabitDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  async openAiHabits() {
+    const iChatRequest: IChatRequest = {
+      messages: [
+        {
+          role: 'assistant',
+          content:
+            'write a unique daily habit for an eight-year-old in less than 50 characters and be both creative and practical but do NOT: (1) include a period at the end, (2) include habits related to brushing teeth, (3) include references to the number of times per week. Do not end with a period. Do not use double quotes.',
+        },
+      ],
+    };
+    const habits = await this.habitService.getAiHabit(iChatRequest);
+    const aiHabit = (await lastValueFrom(habits)).result.message.content;
+    // this.aiHabitPlaceholder = aiHabit ?? 'Brush my teeth';
+    this.habitName = aiHabit ?? '';
+    console.log(`aiHabit: `, aiHabit);
+  }
+
+  // async getAiHabit() {
+  //   try {
+  //     const iChatRequest: IChatRequest = {
+  //       model: 'gpt-3.5-turbo',
+  //       messages: [
+  //         {
+  //           role: 'function',
+  //           content:
+  //             'What is a good daily habit for a 5 year old, limit answer to 50 characters',
+  //           name: 'jack',
+  //         },
+  //       ],
+  //     };
+  //     const habits = await this.habitService.getAiHabit(iChatRequest);
+
+  //     const aiHabit = (await lastValueFrom(habits)).result;
+
+  //     console.log(`aiHabit: `, aiHabit);
+
+  //     // this.aiHabitPlaceholder = aiHabit;
+  //   } catch (error) {
+  //     console.error('Error fetching AI habit:', error);
+  //   }
+  // }
 }

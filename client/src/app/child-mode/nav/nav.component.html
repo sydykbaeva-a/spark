@@ -1,0 +1,30 @@
+Test Nav<mat-tab-group class="navbar" headerPosition="below">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>home</mat-icon>
+      <a mat-icon class="example-tab-icon" routerLink="/home">Home</a>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>calendar_today</mat-icon>
+      <a mat-icon class="example-tab-icon" routerLink="/myday">My Day</a>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>collections</mat-icon>
+      <a
+        mat-icon
+        class="example-tab-icon"
+        routerLink="/stepper"
+        matBadge="1"
+        matBadgePosition="after"
+        matBadgeColor="accent"
+        >My Prize</a
+      >
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

@@ -1,7 +1,9 @@
 * {
   margin: 0;
 }
-
+body {
+  background-color: #dfe0e2;
+}
 //audio
 audio {
   display: none;
@@ -14,7 +16,8 @@ audio {
 .card {
   border: 0 !important;
   border-radius: 1.25rem !important;
-  box-shadow: 0 10px 20px 2px #181a28 !important;
+  // box-shadow: 0 10px 20px 2px #181a28 !important;
+  box-shadow: 0 0px 10px 3px #00000059 !important;
   display: flex !important;
   flex-direction: column !important;
   position: relative !important;
@@ -22,6 +25,7 @@ audio {
   height: 300px !important;
   align-items: center !important;
   justify-content: center !important;
+  // backdrop-filter: blur(5px);
 }
 .card-img {
   width: 250%;
@@ -63,4 +67,30 @@ audio {
 
 .back .btn-primary {
   background-color: rgb(120, 11, 11) !important;
+}
+.container {
+  display: grid;
+  max-width: 100%;
+  padding: 0;
+}
+.row {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  z-index: 99;
+  height: 100vh;
+}
+.toy-bg {
+  // position: fixed;
+  // top: 0;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  z-index: 1;
+}
+
+.child-selector {
+  z-index: 99;
+}
+
+.mat-button-toggle-checked {
+  background-color: lightgreen !important;
 }
