@@ -39,8 +39,8 @@ export class MyCollectionComponent implements OnInit {
 
   openPopUp() {
     let dialogRef = this.dialog.open(PopUpComponent, {
-      width: '1000px',
-      height: '1000px',
+      width: '70%',
+      height: '70%',
       data: {},
     });
     dialogRef.afterClosed().subscribe(() => {
