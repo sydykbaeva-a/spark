@@ -1,6 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import {
+  DeleteResult,
+  Repository,
+  UpdateQueryBuilder,
+  UpdateResult,
+} from 'typeorm';
 import { ChildEntity } from './child.entity';
 import { ParentEntity } from 'src/parent/parent.entity';
 
