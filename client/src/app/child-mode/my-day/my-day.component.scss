@@ -1,8 +1,12 @@
 * {
   margin: 0;
 }
-body {
-  background-color: #dfe0e2;
+body,
+.mat-typography {
+  background-color: #dfe0e2 !important;
+}
+:host {
+  background-color: #dfe0e2 !important;
 }
 //audio
 audio {

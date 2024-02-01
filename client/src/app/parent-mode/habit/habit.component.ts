@@ -36,10 +36,6 @@ export class HabitComponent implements OnInit {
   findChildren() {
     console.log(`HabitComponent > currUserId: `, this.currUserId);
     this.childService.findChildren(this.currUserId).subscribe((child_all) => {
-      console.log(
-        `Filtered child list for user ID ${this.currUserId}: `,
-        child_all
-      );
       this.children = child_all;
     });
   }

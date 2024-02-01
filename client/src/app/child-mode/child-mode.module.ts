@@ -41,6 +41,7 @@ import { MatIconModule } from '@angular/material/icon';
     MyCollectionComponent,
     PopUpComponent,
     NavComponent,
+    MyDayDialogComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
