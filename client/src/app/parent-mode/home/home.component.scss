@@ -17,10 +17,11 @@
 
 .container{
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     min-height: 100vh;
-    width: 700px;
+    width: 100%;
+    min-width: 85%;
     grid-column: 1/2;
     grid-row: 1/2;
 }

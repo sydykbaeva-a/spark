@@ -61,12 +61,13 @@ export class ChildService {
   editChild(
     userId: number,
     childId: number,
-    childName: string
-    // childName: { child_name: string }
+    childName: string,
+    numberOfActivatedItems: number
   ): Observable<IChild[]> {
     const childNameObj: IChild = {
       child_name: childName,
       user_id: userId,
+      number_of_activateItems: numberOfActivatedItems,
     };
     const httpUrl = this.baseHttpUrl + userId + '/child_edit';
     return this.http.patch<IChild[]>(`${httpUrl}/${childId}`, childNameObj);

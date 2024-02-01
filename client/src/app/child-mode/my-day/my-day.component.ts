@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { IChild } from 'src/app/child.interface';
 import { ChildService } from 'src/app/child.service';
 import { IHabitChildMap } from 'src/app/habit-child-map.interface';
 import { HabitService } from 'src/app/habit.service';
+import { IUser } from 'src/app/parent.interface';
 
 @Component({
   selector: 'app-my-day',
@@ -17,11 +19,16 @@ export class MyDayComponent implements OnInit {
   originalHabitChildMap: IHabitChildMap[] = [];
   children!: IChild[];
   currUserId: number = 1;
+  openItemCollection = false;
+  childId: number = 0;
 
   constructor(
     private childService: ChildService,
-    private habitService: HabitService
-  ) {}
+    private habitService: HabitService,
+    private router: Router
+  ) {
+    this.currUserId = this.childService.getCurrentUserId();
+  }
 
   ngOnInit(): void {
     this.filterHabitsbyUser();
@@ -33,7 +40,7 @@ export class MyDayComponent implements OnInit {
     return `background-color: ${this.colors[colorIndex]}`;
   }
 
-  handleClick(habitMapRecord: IHabitChildMap) {
+  async handleClick(habitMapRecord: IHabitChildMap) {
     this.editHabitChildMap(
       habitMapRecord.child_id,
       habitMapRecord.habit_id,
@@ -46,7 +53,23 @@ export class MyDayComponent implements OnInit {
       habitMapRecord
     );
 
-    this.checkAllHabitStatusTrue(habitMapRecord.child_id);
+    this.openItemCollection = this.checkAllHabitStatusTrue(
+      habitMapRecord.child_id
+    );
+
+    if (this.openItemCollection) {
+      const promise = await this.childService.findChild(this.childId);
+      const child: IChild = await lastValueFrom(promise);
+      child.number_of_activateItems! += 1;
+      const t = await this.childService.editChild(
+        this.currUserId,
+        this.childId,
+        child.child_name!,
+        child.number_of_activateItems!
+      );
+      const t2 = await lastValueFrom(t);
+      this.router.navigate(['/mycollection']);
+    }
   }
 
   checkAllHabitStatusTrue(childId: number): boolean {
@@ -62,7 +85,7 @@ export class MyDayComponent implements OnInit {
         `Congrats! all habits for child_id of ${childId} is ${allHabitsDone}`
       );
     }
-
+    this.childId = childId;
     // Check if habit_status is true for all filtered habits
     return allHabitsDone;
   }
