@@ -154,14 +154,7 @@ const colors = ['#d06ab2', '#009aff', '#de768c', '#d358ff'];
   if (Date.now() < end) {
     requestAnimationFrame(frame);
   }
-})();
-
-    // confetti({
-    //   particleCount: 100,
-    //   spread: 70,
-    //   origin: { y: 0.6 },
-    // });
-    
+})();    
     `;
     this.renderer.appendChild(this.el.nativeElement, script);
   }

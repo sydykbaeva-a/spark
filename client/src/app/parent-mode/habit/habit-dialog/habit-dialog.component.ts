@@ -158,33 +158,6 @@ export class HabitDialogComponent {
     };
     const habits = await this.habitService.getAiHabit(iChatRequest);
     const aiHabit = (await lastValueFrom(habits)).result.message.content;
-    // this.aiHabitPlaceholder = aiHabit ?? 'Brush my teeth';
     this.habitName = aiHabit ?? '';
-    console.log(`aiHabit: `, aiHabit);
   }
-
-  // async getAiHabit() {
-  //   try {
-  //     const iChatRequest: IChatRequest = {
-  //       model: 'gpt-3.5-turbo',
-  //       messages: [
-  //         {
-  //           role: 'function',
-  //           content:
-  //             'What is a good daily habit for a 5 year old, limit answer to 50 characters',
-  //           name: 'jack',
-  //         },
-  //       ],
-  //     };
-  //     const habits = await this.habitService.getAiHabit(iChatRequest);
-
-  //     const aiHabit = (await lastValueFrom(habits)).result;
-
-  //     console.log(`aiHabit: `, aiHabit);
-
-  //     // this.aiHabitPlaceholder = aiHabit;
-  //   } catch (error) {
-  //     console.error('Error fetching AI habit:', error);
-  //   }
-  // }
 }

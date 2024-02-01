@@ -19,7 +19,7 @@ export class MyDayDialogComponent {
   }
 
   goToMyPrize() {
-    this.route.navigate(['/mycollection']);
     this.dialogRef.close();
+    this.route.navigate(['/mycollection']);
   }
 }
