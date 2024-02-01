@@ -50,6 +50,7 @@ export class ChildComponent implements OnInit {
     const child: IChild = {
       child_name: this.childName,
       user_id: this.userId,
+      number_of_activateItems: 0,
     };
     this.childService.addChild(this.userId, child).subscribe((child) => {
       console.log(
@@ -71,7 +72,7 @@ export class ChildComponent implements OnInit {
 
   editChild(childId: number, childName: string, iChild: IChild) {
     this.childService
-      .editChild(this.userId, childId, childName)
+      .editChild(this.userId, childId, childName, 0)
       .subscribe((child) => {
         console.log(`Edit child ID ${childId} of children: `, child);
         iChild.child_edit = false;

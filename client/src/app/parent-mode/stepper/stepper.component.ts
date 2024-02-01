@@ -5,6 +5,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stepper',
@@ -22,10 +23,15 @@ export class StepperComponent {
 
   constructor(
     private _formBuilder: FormBuilder,
-    breakpointObserver: BreakpointObserver
+    breakpointObserver: BreakpointObserver,
+    private route: Router
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
+  }
+
+  enterChildMode() {
+    this.route.navigate(['/myday']);
   }
 }
