@@ -1,0 +1,23 @@
+@import "@angular/material/theming";
+@include mat-core();
+
+$white-palette: mat-palette($mat-grey, A100, A100, A100);
+
+$primary: mat-palette($white-palette, 200);
+$accent: mat-palette($mat-orange, 200);
+
+$theme: mat-light-theme($primary, $accent);
+
+@include angular-material-theme($theme);
+
+a {
+  color: mat-color($primary, 200);
+}
+
+a:hover {
+  color: mat-color($primary, 200);
+}
+
+.mat-mdc-tab {
+  padding-top: 10px !important;
+}

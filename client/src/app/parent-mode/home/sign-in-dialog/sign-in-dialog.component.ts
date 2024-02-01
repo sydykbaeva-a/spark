@@ -29,6 +29,7 @@ export class SignInDialogComponent {
       console.log('Error with user');
     } else {
       const user = Number(this.userId);
+      console.log(`SignInDialogComponent > user: `, user);
       this.childService.setCurrentUserId(user);
     }
     this.dialogRef.close();

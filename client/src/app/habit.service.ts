@@ -4,6 +4,11 @@ import { Observable, catchError, map, tap } from 'rxjs';
 import { IHabitChildMap } from './habit-child-map.interface';
 import { HabitInterface } from './habit.interface';
 
+import {
+  IChatRequest,
+  IChatResponse,
+} from '../../../server/src/ai-assist/model/openai.interface';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -105,5 +110,9 @@ export class HabitService {
   deleteHabit(habitId: number): Observable<HabitInterface[]> {
     const httpUrl = this.baseHttpUrl + 'habit_delete';
     return this.http.delete<HabitInterface[]>(`${httpUrl}/${habitId}`);
+  }
+
+  getAiHabit(iChatRequest: IChatRequest) {
+    return this.http.post<IChatResponse>(`/openai/chat`, iChatRequest);
   }
 }

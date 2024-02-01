@@ -1,18 +1,30 @@
-<body class="m-3 mb-8">
-  <mat-button-toggle-group aria-label="Children Toggle">
-    <mat-button-toggle [value]="'All'" (click)="onToggleClick(0)"
-      >ALL</mat-button-toggle
-    >
-    <mat-button-toggle
-      *ngFor="let child of children"
-      [value]="child.child_name"
-      (click)="onToggleClick(child.child_id!)"
-    >
-      {{ child.child_name }}
-    </mat-button-toggle>
-  </mat-button-toggle-group>
-
-  <div class="row">
+<mat-button-toggle-group aria-label="Children Toggle" class="child-selector">
+  <mat-button-toggle [value]="'All'" (click)="onToggleClick(0)"
+    >ALL</mat-button-toggle
+  >
+  <mat-button-toggle
+    *ngFor="let child of children"
+    [value]="child.child_name"
+    (click)="onToggleClick(child.child_id!)"
+  >
+    {{ child.child_name }}
+  </mat-button-toggle>
+</mat-button-toggle-group>
+<!-- <button mat-mini-fab class="ml-2" style="background: purple; color: white">
+  <img
+    class="icon"
+    src="https://i.imgur.com/cP9vvAd.png"
+    style="
+      width: 30px;
+      background: none;
+      padding: 0;
+      border: 0;
+      cursor: pointer;
+    "
+  />
+</button> -->
+<div class="container">
+  <div class="row" style="z-index: 99">
     <div
       *ngFor="let habitMapRecord of habitChildMap; let i = index"
       class="card-wrapper col-lg-4 col-md-6 col-sm-12 mb-4"
@@ -49,12 +61,21 @@
       </div>
     </div>
   </div>
-  <audio #audioPlayer controls>
-    <source src="./assets/card-flip01.mp3" type="audio/mp3" />
-    Your browser does not support the audio element.
-  </audio>
-  <audio #audioPlayer2 controls>
-    <source src="./assets/card-flip02.mp3" type="audio/mp3" />
-    Your browser does not support the audio element.
-  </audio>
-</body>
+  <iframe
+    style="z-index: 0"
+    src="https://my.spline.design/draganddropfloatingemojiscopy-6be3ac542e11114f39df5feeb887fbc9/"
+    frameborder="0"
+    width="100%"
+    height="100%"
+    class="toy-bg"
+  ></iframe>
+</div>
+<audio #audioPlayer controls>
+  <source src="./assets/card-flip01.mp3" type="audio/mp3" />
+  Your browser does not support the audio element.
+</audio>
+<audio #audioPlayer2 controls>
+  <source src="./assets/card-flip02.mp3" type="audio/mp3" />
+  Your browser does not support the audio element.
+</audio>
+<app-nav></app-nav>
