@@ -19,6 +19,9 @@ export class ChildEntity {
   @Column()
   user_id: number;
 
+  @Column()
+  number_of_activateItems: number;
+
   @OneToMany(() => HabitChildMapEntity, (habitChildMap) => habitChildMap.child)
   habitChildMap: HabitChildMapEntity[];
 }
