@@ -13,6 +13,13 @@ import { HabitService } from './habit/habit.service';
 import { HabitEntity } from './habit/habit.entity';
 import { HabitChildMapEntity } from './habit/habit_child_map.entity';
 import { ParentEntity } from './parent/parent.entity';
+import { CronService } from './habit/cron.service';
+import { ScheduleModule } from '@nestjs/schedule';
+
+import { OpenaiModule } from './openai/openai.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { OpenaiController } from './ai-assist/ai-assist.controller';
+import { OpenaiService } from './ai-assist/ai-assist.service';
 
 @Module({
   imports: [
@@ -30,8 +37,17 @@ import { ParentEntity } from './parent/parent.entity';
       HabitChildMapEntity,
       ParentEntity,
     ]),
+    ScheduleModule.forRoot(),
+    EventEmitterModule.forRoot(),
+    OpenaiModule,
   ],
-  controllers: [AppController, ParentController],
-  providers: [AppService, ChildService, HabitService],
+  controllers: [AppController, ParentController, OpenaiController],
+  providers: [
+    AppService,
+    ChildService,
+    HabitService,
+    CronService,
+    OpenaiService,
+  ],
 })
-export class AppModule { }
+export class AppModule {}

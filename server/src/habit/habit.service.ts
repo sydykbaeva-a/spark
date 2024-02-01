@@ -12,8 +12,6 @@ export class HabitService {
     private readonly habitRepo: Repository<HabitEntity>,
     @InjectRepository(HabitChildMapEntity)
     private readonly habitChildMapRepo: Repository<HabitChildMapEntity>,
-    @InjectRepository(ChildEntity)
-    private readonly childRepo: Repository<ChildEntity>,
   ) {}
 
   // Habit methods
@@ -119,7 +117,12 @@ export class HabitService {
       habit_name: result.habit_name,
       child_id: result.child_id,
       child_name: result.child_name,
-      habit_status: result.habit_status, //new
+      habit_status: result.habit_status,
     }));
+  }
+
+  //cron job to daily reset of habit_status to false
+  async updateHabitStatusToFalse(): Promise<void> {
+    await this.habitChildMapRepo.update({}, { habit_status: false });
   }
 }
