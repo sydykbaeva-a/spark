@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IChild } from './child.interface';
-import { Observable, catchError, lastValueFrom, tap } from 'rxjs';
+import { Observable, catchError, last, lastValueFrom, tap } from 'rxjs';
 import { IUser } from './parent.interface';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { IUser } from './parent.interface';
 export class ChildService {
   private baseHttpUrl = '/parent/';
   private currUserId!: number;
+  private currentChild: number = 0;
   constructor(private http: HttpClient) {}
 
   setCurrentUserId(userId: number) {
@@ -77,5 +78,13 @@ export class ChildService {
     const http = this.baseHttpUrl + 'user_add';
     const users = await this.http.post<IUser[]>(http, user);
     return lastValueFrom(users);
+  }
+
+  setCurrentChild(childId: number) {
+    this.currentChild = childId;
+  }
+
+  getCurrentChild(): number {
+    return this.currentChild;
   }
 }

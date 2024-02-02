@@ -3,3 +3,23 @@
     justify-content: center;
     font-size: medium;
 }
+
+.qr-code {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    right: 10px; /* Adjust the right position as needed */
+    width: 100px; /* Set the width of the QR code image */
+    height: auto;
+  }
+
+  .container {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Set your desired max-width for the container */
+  }
+
+  .main-image {
+    width: 60%;
+    height: auto;
+    display: block;
+  }

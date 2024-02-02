@@ -1,3 +1,4 @@
+ <div class="theme">
  <div class="children">
   <mat-button-toggle-group aria-label="Children Toggle">
     <mat-button-toggle
@@ -10,29 +11,75 @@
   </mat-button-toggle-group>
 </div>
 
- <div class="wrapper" style="margin: 200px">
+ <div class="wrapper">
   <h1>My Prize</h1>
   <div [className]="'cols disabledCards' + childId">
+			<!-- David -->
 			<div class="col" ontouchstart="this.classList.toggle('hover');" id="card1">
 				<div class="container">
 					<div class="front" style="background-image: url('../../../assets/AHbfLKA.png')">
 						<div class="inner">
-              <div style="background-color: #000000; padding: 10px; border-radius: 20px;">
-                <p style="color: white;">David Wise 🎯</p>
-            </div>
-              <img mat-card-image src="../../../assets/AHbfLKA-removebg-preview.png" style="width: 105%; height: 105%" alt="Image Alt Text">
+              				<img mat-card-image src="../../../assets/AHbfLKA-removebg-preview.png" style="width: 150%; height: 150%" alt="Image Alt Text">
 						</div>
 					</div>
 					<div class="back">
 						<div class="inner">
 							<model-viewer src="../../../assets/davidDance.glb" camera-controls ar autoplay scale="10 10 10" shadow-intensity="1" style="width:300px; height:300px"></model-viewer>
-							<button mat-button color="primary" tabindex="2" (click)="openPopUp()">Open</button>
+							<button mat-button color="primary" (click)="openPopUp('David')">Open</button>
 						</div>
 					</div>
 				</div>
 			</div>
-
+			<!-- Spark -->
 			<div class="col" ontouchstart="this.classList.toggle('hover');" id="card2">
+				<div class="container">
+					<div class="front" style="background-image: url('../../../assets/spark.png')">
+						<div class="inner">
+              				<img mat-card-image src="../../../assets/spark-removebg-preview.png" style="width: 110%; height: 110%" alt="Image Alt Text">
+						</div>
+					</div>
+					<div class="back">
+						<div class="inner">
+							<model-viewer src="../../../assets/spark (1).glb" camera-controls ar autoplay scale="10 10 10" shadow-intensity="1" style="width:150px; height:150px"></model-viewer>
+							<button mat-button color="primary" tabindex="2" (click)="openPopUp('Spark')">Open</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Robot -->
+			<div class="col" ontouchstart="this.classList.toggle('hover');" id="card3">
+				<div class="container">
+					<div class="front" style="background-image: url('../../../assets/robotto.png')">
+						<div class="inner">
+              				<img mat-card-image src="../../../assets/robot-no-bg.png" style="width: 110%; height: 110%" alt="Image Alt Text">
+						</div>
+					</div>
+					<div class="back">
+						<div class="inner">
+							<model-viewer src="../../../assets/robot.glb" camera-controls ar autoplay scale="10 10 10" shadow-intensity="1" style="width:200px; height:200px"></model-viewer>
+							<button mat-button color="primary" tabindex="2" (click)="openPopUp('Robot')">Open</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Bear AR -->
+			<div class="col" ontouchstart="this.classList.toggle('hover');" id="card3">
+				<div class="container">
+					<div class="front" style="background-image: url('../../../assets/bear.png')">
+						<div class="inner">
+              				<img mat-card-image src="../../../assets/bear-removebg-preview (1).png" style="width: 110%; height: 110%" alt="Image Alt Text">
+						</div>
+					</div>
+					<div class="back">
+						<div class="inner">
+							<img mat-card-image src="../../../assets/bear.png" style="width: 110%; height: 110%" alt="Image Alt Text">
+							<button mat-button color="primary" tabindex="2" (click)="openPopUp('BearAr')">Open</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Bird -->
+			<div class="col" ontouchstart="this.classList.toggle('hover');" id="card4">
 				<div class="container">
 					<div class="front" style="background-image: url('../../../assets/bird.jpeg')">
 						<div class="inner">
@@ -46,8 +93,8 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="col" ontouchstart="this.classList.toggle('hover');" id="card3">
+			<!-- Rabbit -->
+			<div class="col" ontouchstart="this.classList.toggle('hover');" id="card5">
 				<div class="container">
 					<div class="front" style="background-image: url('../../../assets/rabbit.jpeg')">
 						<div class="inner">
@@ -56,8 +103,7 @@
 					</div>
 					<div class="back">
 						<div class="inner">
-							<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias cum repellat velit quae suscipit c.</p>
-              <model-viewer src="../../../assets/davidDance.glb" camera-controls ar autoplay scale="10 10 10" shadow-intensity="1"></model-viewer>
+              <!-- <model-viewer src="../../../assets/davidDance.glb" camera-controls ar autoplay scale="10 10 10" shadow-intensity="1"></model-viewer> -->
 						</div>
 					</div>
 				</div>
@@ -65,7 +111,6 @@
 
 		</div>
  	</div>
-
-
+</div>
     
         
