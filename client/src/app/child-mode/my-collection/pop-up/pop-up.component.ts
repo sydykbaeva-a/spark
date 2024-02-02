@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { SignInDialogComponent } from 'src/app/parent-mode/home/sign-in-dialog/sign-in-dialog.component';
-
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-pop-up-component',
   templateUrl: './pop-up.component.html',
   styleUrls: ['./pop-up.component.scss'],
 })
 export class PopUpComponent {
-  constructor(public dialogRef: MatDialogRef<SignInDialogComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<PopUpComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { path: string }
+  ) {}
+
+  ngOnInit() {
+    console.log(this.data.path);
+  }
+
   ok() {
     this.dialogRef.close();
   }

@@ -11,7 +11,7 @@ import {
   MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { lastValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { IChild } from 'src/app/child.interface';
 import { ChildService } from 'src/app/child.service';
 import { IHabitChildMap } from 'src/app/habit-child-map.interface';
@@ -91,15 +91,23 @@ export class MyDayComponent implements OnInit {
     if (this.openItemCollection) {
       const promise = await this.childService.findChild(this.childId);
       const child: IChild = await lastValueFrom(promise);
+      this.childService.setCurrentChild(this.childId);
       child.number_of_activateItems! += 1;
-      const t = await this.childService.editChild(
+
+      const editChild = await this.childService.editChild(
         this.currUserId,
         this.childId,
         child.child_name!,
         child.number_of_activateItems!
       );
-      const t2 = await lastValueFrom(t);
-      this.router.navigate(['/mycollection']);
+      const test = await firstValueFrom(editChild);
+      console.log('test');
+
+      console.log(test);
+
+      setTimeout(() => {
+        this.router.navigate(['/mycollection']);
+      }, 5000);
     }
   }
 

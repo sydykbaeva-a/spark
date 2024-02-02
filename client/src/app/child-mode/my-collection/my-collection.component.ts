@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PopUpComponent } from './pop-up/pop-up.component';
 import { ChildService } from 'src/app/child.service';
@@ -15,16 +15,20 @@ export class MyCollectionComponent implements OnInit {
   disable = false;
   userActivatedItems: number | undefined;
   childId: number = 0;
+  @ViewChild('modelViewer') modelViewer: ElementRef | undefined;
 
-  constructor(private dialog: MatDialog, private childService: ChildService) {}
+  constructor(private dialog: MatDialog, private childService: ChildService) {
+    this.childId = this.childService.getCurrentChild();
+  }
 
   ngOnInit() {
     this.getChildren();
+    console.log('ngOnINit');
   }
 
   async getChildren() {
     const userId = this.childService.getCurrentUserId();
-    const promise = this.childService.findChildren(userId);
+    const promise = await this.childService.findChildren(userId);
     this.children = await lastValueFrom(promise);
   }
 
@@ -34,14 +38,15 @@ export class MyCollectionComponent implements OnInit {
     )!;
     this.userActivatedItems = currChild.number_of_activateItems;
     this.childId = currChild.child_id!;
+
     this.disableCard(this.userActivatedItems!, this.childId);
   }
 
-  openPopUp() {
+  openPopUp(prize: string) {
     let dialogRef = this.dialog.open(PopUpComponent, {
       width: '70%',
       height: '70%',
-      data: {},
+      data: { path: prize },
     });
     dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
