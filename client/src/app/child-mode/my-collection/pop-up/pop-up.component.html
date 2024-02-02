@@ -1,13 +1,18 @@
 <ol>
     <h1 mat-dialog-title class="sign">My Prize</h1>
         <mat-dialog-content *ngIf="this.data.path === 'David'">
-        <model-viewer src="../../../../assets/davidDance.glb" camera-controls ar autoplay scale="10 10 10" shadow-intensity="1" style="width: 800px; height:800px"></model-viewer>
-        <a href="https://c129a0a7-9060-460e-a16d-04f8b42b3892-00-1hbtra07tb5bp.picard.replit.dev/daviddance.html" target="_blank">AR</a>
+          <div>
+            <model-viewer src="../../../../assets/davidDance.glb" camera-controls ar autoplay scale="10 10 10" shadow-intensity="1" style="width: 800px; height:800px"></model-viewer>
+            <!-- <a href="https://c129a0a7-9060-460e-a16d-04f8b42b3892-00-1hbtra07tb5bp.picard.replit.dev/daviddance.html" target="_blank">AR</a> -->
+            <img mat-card-image src="../../../../assets/new-qr-david.png"  class="qr-code" alt="Image Alt Text">               
+          </div>
         </mat-dialog-content>
 
         <mat-dialog-content *ngIf="this.data.path === 'Spark'">
           <model-viewer src="../../../../assets/spark (1).glb" camera-controls ar autoplay scale="10 10 10" shadow-intensity="1" style="width: 500px; height:500px"></model-viewer>
-          </mat-dialog-content>
+          <!-- <button [routerLink]="['https://c129a0a7-9060-460e-a16d-04f8b42b3892-00-1hbtra07tb5bp.picard.replit.dev/spark.html']">AR</button> -->
+          <a href="https://c129a0a7-9060-460e-a16d-04f8b42b3892-00-1hbtra07tb5bp.picard.replit.dev/spark.html" style="color:black" target="_blank">AR</a>
+        </mat-dialog-content>
       
           <mat-dialog-content *ngIf="this.data.path === 'Robot'">
             <model-viewer src="../../../../assets/robot.glb" camera-controls ar autoplay scale="10 10 10" shadow-intensity="1" style="width: 800px; height:800px"></model-viewer>
