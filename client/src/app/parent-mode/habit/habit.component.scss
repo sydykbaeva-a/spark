@@ -3,3 +3,14 @@
   overflow: hidden;
   margin: 20px auto;
 }
+.add-habit-button {
+  width: 300px;
+  display: block;
+  margin: 0 auto;
+
+  button,
+  mat-form-field {
+    margin: 0 auto;
+    display: block;
+  }
+}

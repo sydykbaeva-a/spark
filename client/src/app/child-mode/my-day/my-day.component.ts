@@ -18,6 +18,7 @@ import { IHabitChildMap } from 'src/app/habit-child-map.interface';
 import { HabitService } from 'src/app/habit.service';
 import { IUser } from 'src/app/parent.interface';
 import { MyDayDialogComponent } from '../my-day-dialog/my-day-dialog.component';
+import { DataService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-my-day',
@@ -46,14 +47,17 @@ export class MyDayComponent implements OnInit {
     private router: Router,
     private el: ElementRef,
     private renderer: Renderer2,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dataService: DataService
   ) {
     this.currUserId = this.childService.getCurrentUserId();
   }
 
   ngOnInit(): void {
+    this.importBootstrapCSS();
     this.filterHabitsbyUser();
     this.findChildren();
+    this.fetchCurrentUser();
   }
 
   openDialog() {
@@ -100,14 +104,8 @@ export class MyDayComponent implements OnInit {
         child.child_name!,
         child.number_of_activateItems!
       );
-      const test = await firstValueFrom(editChild);
-      console.log('test');
-
-      console.log(test);
-
-      setTimeout(() => {
-        this.router.navigate(['/mycollection']);
-      }, 5000);
+      const t2 = await lastValueFrom(editChild);
+      this.dataService.setDataNumActivate(child.number_of_activateItems!);
     }
   }
 
@@ -178,6 +176,13 @@ const colors = ['#d06ab2', '#009aff', '#de768c', '#d358ff'];
     });
   }
 
+  fetchCurrentUser() {
+    this.dataService.getDataUserId().subscribe((data) => {
+      this.currUserId = data;
+      console.log(`MyDayComponent > Current UserId: `, data);
+    });
+  }
+
   async filterHabitsbyUser() {
     const habits = await this.habitService.findHabitByUserId(this.currUserId);
 
@@ -191,6 +196,7 @@ const colors = ['#d06ab2', '#009aff', '#de768c', '#d358ff'];
   }
 
   onToggleClick(toggleChildId: number) {
+    this.dataService.setDataChildId(toggleChildId);
     console.log('onToggleClick > toggleChildId = ', toggleChildId);
     console.log(
       'onToggleClick > this.habitChildMap.length = ',
@@ -219,5 +225,26 @@ const colors = ['#d06ab2', '#009aff', '#de768c', '#d358ff'];
     this.habitService
       .editHabitChildMap(childId, habitId, habitStatus)
       .subscribe();
+  }
+
+  importBootstrapCSS(): void {
+    // Dynamically add Bootstrap stylesheet link
+    const link = this.renderer.createElement('link');
+    this.renderer.setAttribute(link, 'rel', 'stylesheet');
+    this.renderer.setAttribute(
+      link,
+      'href',
+      'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css'
+    );
+    this.renderer.appendChild(this.el.nativeElement, link);
+
+    const mdbLink = this.renderer.createElement('link');
+    this.renderer.setAttribute(mdbLink, 'rel', 'stylesheet');
+    this.renderer.setAttribute(
+      mdbLink,
+      'href',
+      'https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/compiled-4.20.0.min.css'
+    );
+    this.renderer.appendChild(this.el.nativeElement, mdbLink);
   }
 }

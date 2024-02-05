@@ -1,25 +1,31 @@
-.sign{
-    display: flex;
-    justify-content: center;
-    font-size: medium;
+.sign {
+  display: flex;
+  justify-content: center;
+  font-size: medium;
+}
+#card1 model-viewer {
+  width: 1000px !important;
+  height: 1000px !important;
+  position: relative;
+  bottom: 380px;
+  right: 100px;
+}
+.qr-code {
+  position: absolute;
+  top: 90px; /* Adjust the top position as needed */
+  right: 10px; /* Adjust the right position as needed */
+  width: 100px; /* Set the width of the QR code image */
+  height: auto;
 }
 
-.qr-code {
-    position: absolute;
-    top: 10px; /* Adjust the top position as needed */
-    right: 10px; /* Adjust the right position as needed */
-    width: 100px; /* Set the width of the QR code image */
-    height: auto;
-  }
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 800px; /* Set your desired max-width for the container */
+}
 
-  .container {
-    position: relative;
-    width: 100%;
-    max-width: 800px; /* Set your desired max-width for the container */
-  }
-
-  .main-image {
-    width: 60%;
-    height: auto;
-    display: block;
-  }
+.main-image {
+  width: 60%;
+  height: auto;
+  display: block;
+}

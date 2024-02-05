@@ -10,6 +10,15 @@
     {{ child.child_name }}
   </mat-button-toggle>
 </mat-button-toggle-group>
+<div class="add-habit-button">
+  <button
+    mat-raised-button
+    style="background-color: rgb(77, 186, 120); color: white; margin-top: 1rem"
+    (click)="addOrEditHabit()"
+  >
+    Add Habit
+  </button>
+</div>
 
 <table
   mat-table

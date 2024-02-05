@@ -7,6 +7,7 @@ import { HabitService } from 'src/app/habit.service';
 import { HabitDialogComponent } from './habit-dialog/habit-dialog.component';
 import { IChild } from 'src/app/child.interface';
 import { lastValueFrom } from 'rxjs';
+import { DataService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-habit',
@@ -25,18 +26,33 @@ export class HabitComponent implements OnInit {
   constructor(
     private habitService: HabitService,
     private childService: ChildService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dataService: DataService
   ) {}
 
   ngOnInit() {
     this.filterHabitsbyUser();
     this.findChildren();
+    this.fetchChildren();
+    this.fetchCurrentUser();
   }
 
   findChildren() {
     console.log(`HabitComponent > currUserId: `, this.currUserId);
     this.childService.findChildren(this.currUserId).subscribe((child_all) => {
       this.children = child_all;
+    });
+  }
+  fetchChildren() {
+    this.dataService.getData().subscribe((data) => {
+      this.children = data;
+      console.log(`HabitComponent > List of Children: `, data);
+    });
+  }
+  fetchCurrentUser() {
+    this.dataService.getDataUserId().subscribe((data) => {
+      this.currUserId = data;
+      console.log(`HabitComponent > Current UserId: `, data);
     });
   }
 

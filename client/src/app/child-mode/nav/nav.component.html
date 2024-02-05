@@ -1,5 +1,5 @@
 <mat-tab-group class="navbar" headerPosition="below">
-  <mat-tab>
+  <mat-tab class="mat-tab">
     <ng-template mat-tab-label>
       <a mat-icon class="tab-icon" routerLink="/myday"
         ><mat-icon>calendar_today</mat-icon> My Day</a
@@ -7,7 +7,7 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab>
+  <mat-tab class="mat-tab">
     <ng-template mat-tab-label>
       <a
         mat-icon
@@ -21,3 +21,6 @@
     </ng-template>
   </mat-tab>
 </mat-tab-group>
+<div class="settings">
+  <a mat-icon routerLink="/stepper"><mat-icon>settings</mat-icon></a>
+</div>

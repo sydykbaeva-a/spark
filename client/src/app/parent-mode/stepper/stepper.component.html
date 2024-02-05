@@ -2,10 +2,10 @@
   class="example-stepper"
   [orientation]="(stepperOrientation | async)!"
 >
-  <mat-step [stepControl]="firstFormGroup" label="Add child">
+  <mat-step [stepControl]="firstFormGroup" label="Add child" class="add-child">
     <form [formGroup]="firstFormGroup" class="child-form">
       <app-child></app-child>
-      <div>
+      <div class="child-nav-buttons">
         <button class="next-button" mat-raised-button matStepperNext>
           Next
         </button>
@@ -13,21 +13,25 @@
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="secondFormGroup" label="Add Habits">
+  <mat-step
+    [stepControl]="secondFormGroup"
+    label="Add Habits"
+    class="add-habit"
+  >
     <form [formGroup]="secondFormGroup">
       <app-habit></app-habit>
 
-      <div>
+      <div class="habit-nav-buttons">
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
 
-  <mat-step>
+  <mat-step class="add-child">
     <ng-template matStepLabel>Done</ng-template>
     <div class="done-setup">
-      <h2>All done!</h2>
+      <h2>All done! 🎉</h2>
       <p>
         Now that you've added habits for your children, click on the button
         below so they can start their daily adventure of tracking their habits!

@@ -11,9 +11,29 @@
 .mdc-tab__text-label {
   color: white;
 }
+.mdc-tab__text-label a {
+  color: white !important;
+}
 .mat-icon {
   color: white;
 }
+.mat-mdc-tab {
+  height: 62px !important;
+}
 .mat-badge-medium.mat-badge-above .mat-badge-content {
-  top: -25px;
+  top: -17px;
+}
+.mat-mdc-tab.mdc-tab {
+  height: 62px !important;
+}
+.mat-mdc-tab.mdc-tab a {
+  color: white !important;
+}
+
+.settings .mat-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #9e9e9e;
+  margin: 5px;
 }

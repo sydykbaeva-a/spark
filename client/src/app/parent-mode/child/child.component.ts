@@ -25,6 +25,7 @@ export class ChildComponent implements OnInit {
 
   ngOnInit() {
     this.findChildren();
+    this.fetchCurrentUser();
   }
 
   findChildren() {
@@ -35,6 +36,13 @@ export class ChildComponent implements OnInit {
       );
       this.childDataSource.data = child_all;
       this.dataService.setData(child_all);
+    });
+  }
+
+  fetchCurrentUser() {
+    this.dataService.getDataUserId().subscribe((data) => {
+      this.userId = data;
+      console.log(`ChildComponent > Current UserId: `, data);
     });
   }
 

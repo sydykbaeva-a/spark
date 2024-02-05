@@ -1,12 +1,20 @@
+.example-stepper {
+  font-family: "Montserrat" !important;
+}
+
 .next-button {
-    float: right;
+  float: right;
 }
 
 .child-form {
-    width: 50%;
-    margin: 0 auto;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .done-setup {
-    text-align: center;
+  text-align: center;
+  color: black !important;
+}
+.habit-nav-buttons {
+  float: right;
 }
