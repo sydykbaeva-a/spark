@@ -1,12 +1,9 @@
-
 <mat-dialog-content>
-        <h1 mat-dialog-title>User</h1>
-        <h1>Enter User</h1>
-        <input matInput tabindex="1" [(ngModel)]="userId" placeholder="1" />
-      </mat-dialog-content>
-      <mat-dialog-actions>
-        <button mat-button tabindex="2" (click)="chooseUser()">
-        Ok
-        </button>
-        <button mat-button (click)="onNoClick()" tabindex="-1">No Thanks</button>
+  <h1 mat-dialog-title>User</h1>
+  <h1>Enter User</h1>
+  <input matInput tabindex="1" [(ngModel)]="userId" placeholder="1" value="1" />
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button tabindex="2" (click)="chooseUser()">Ok</button>
+  <button mat-button (click)="onNoClick()" tabindex="-1">No Thanks</button>
 </mat-dialog-actions>

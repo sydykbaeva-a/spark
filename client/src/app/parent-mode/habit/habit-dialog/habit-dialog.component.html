@@ -1,9 +1,11 @@
 <ol>
-  <h1 mat-dialog-title>Habit Name</h1>
+  <h1 mat-dialog-title>Add Habit & Assign to Child</h1>
   <mat-dialog-content>
     <!-- <input matInput tabindex="1" [(ngModel)]="habitName" placeholder="Brush Teeth" /> -->
 
+    <h2>Habit description:</h2>
     <input
+      class="add-habit-input"
       matInput
       tabindex="1"
       [(ngModel)]="habitName"
@@ -14,7 +16,12 @@
       tabindex="3"
       (click)="openAiHabits()"
       mat-raised-button
-      style="background-color: rgb(101, 15, 101); color: white"
+      style="
+        background-color: rgb(101, 15, 101);
+        color: white;
+        display: inline-block;
+        margin-left: 1rem;
+      "
     >
       <img
         class="icon"
@@ -30,17 +37,17 @@
       AI Habit Ideas
     </button>
 
-    <h1>Choose child</h1>
+    <h2>Assign habit to child:</h2>
     <div *ngFor="let child of children">
       <mat-checkbox [(ngModel)]="child.checked">{{
         child.child_name
       }}</mat-checkbox>
     </div>
   </mat-dialog-content>
-  <mat-dialog-actions>
+  <mat-dialog-actions class="submit-habit-child">
+    <button mat-button (click)="onNoClick()" tabindex="-1">No Thanks</button>
     <button mat-button tabindex="2" (click)="chosenChildrenAndAddHabit()">
       Ok
     </button>
-    <button mat-button (click)="onNoClick()" tabindex="-1">No Thanks</button>
   </mat-dialog-actions>
 </ol>

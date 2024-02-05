@@ -14,6 +14,7 @@ export class ChildService {
   constructor(private http: HttpClient) {}
 
   setCurrentUserId(userId: number) {
+    console.log(`from HomeComponent > userId: `, userId);
     this.currUserId = userId;
   }
 
@@ -43,12 +44,15 @@ export class ChildService {
 
   addChild(userId: number, child: IChild): Observable<IChild[]> {
     const httpUrl = this.baseHttpUrl + userId + '/child_add';
+    console.log(
+      `ChildService > POST url: ${this.baseHttpUrl}${userId}/child_add`
+    );
     return this.http.post<IChild[]>(httpUrl, child).pipe(
       tap((response) => {
         console.log(response);
       }),
       catchError((error) => {
-        console.log('Error on adding new child');
+        console.log('Error on adding new child', error);
         return [];
       })
     );

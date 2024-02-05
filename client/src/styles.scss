@@ -3,8 +3,18 @@
 html,
 body {
   height: 100%;
-}
-body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Montserrat", "Helvetica Neue", sans-serif;
+}
+@font-face {
+  font-family: "Sparkle";
+  src: url("./assets/fonts/sparkle.otf") format("opentype");
+}
+
+.mdc-tab__text-label a {
+  color: white !important;
+}
+.theme h1,
+.my-day-heading {
+  font-family: "Sparkle", sans-serif !important;
 }

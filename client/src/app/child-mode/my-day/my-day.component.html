@@ -13,6 +13,7 @@
 
 <div class="container">
   <div class="row" style="z-index: 99">
+    <h1 class="my-day-heading">My Day</h1>
     <div
       *ngFor="let habitMapRecord of habitChildMap; let i = index"
       class="card-wrapper col-lg-4 col-md-6 col-sm-12 mb-4"
@@ -32,17 +33,19 @@
         ]"
       >
         <div class="face front">
-          <a class="btn btn-primary rotate-btn"
-            >{{ habitMapRecord.child_id }} | {{ habitMapRecord.habit_id }} |
-            {{ habitMapRecord.habit_status }}<br />I did it!</a
+          <a class="btn btn-primary rotate-btn">
+            <!-- {{ habitMapRecord.child_id }} | {{ habitMapRecord.habit_id }} |
+            {{ habitMapRecord.habit_status }}<br /> -->
+            I did it!</a
           >
           <h1 class="card-title">{{ habitMapRecord.habit_name }}</h1>
         </div>
 
         <div class="face back">
-          <a class="btn btn-primary rotate-btn"
-            >{{ habitMapRecord.child_id }} | {{ habitMapRecord.habit_id }} |
-            {{ habitMapRecord.habit_status }}<br />I didn't do it yet!</a
+          <a class="btn btn-primary rotate-btn">
+            <!-- {{ habitMapRecord.child_id }} | {{ habitMapRecord.habit_id }} |
+            {{ habitMapRecord.habit_status }}<br /> -->
+            I didn't do it yet!</a
           >
           <h1 class="card-title">{{ habitMapRecord.habit_name }}</h1>
         </div>

@@ -1,30 +1,101 @@
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-<body>
-    <div id="parent">
-        <div class="spark">
-            <iframe src='https://my.spline.design/molang3dcopycopy-bfb0d0c397d28d3facebd59d350267c7/' frameborder='0' width='100%' height='100%'></iframe>
-        </div>
-        <div class="container">
-            <div class="wrapper">
-                <form action="">
-                <h1>Sign Up</h1>
-                <div class="input-box">
-                    <input type="text" placeholder="Name" [(ngModel)]="name" required>
-                </div>
-                <div class="input-box">
-                    <input type="text" placeholder="Surname" [(ngModel)]="surName" required>
-                </div>
-                <div class="signup">
-                    <button mat-raised-button style="background-color:rgb(47, 47, 50); color: white" (click)="SignUp()">Sign Up</button>
-                </div>
-                <div class="signin">
-                    <span>Already have an account? </span>
-                    <button  mat-raised-button style="background-color:rgb(100, 100, 237); color: white" (click)="openDialogToSignIn()">Sign In</button>
-                </div>
-            </form> 
-        </div>
+<link
+  href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+  rel="stylesheet"
+/>
+<body class="home-component">
+  <div id="parent">
+    <div class="spark">
+      <iframe
+        src="https://my.spline.design/molang3dcopycopy-bfb0d0c397d28d3facebd59d350267c7/"
+        frameborder="0"
+        width="100%"
+        height="100%"
+      ></iframe>
     </div>
-</div>
+    <div class="spark-logo"><img src="https://i.imgur.com/TzlfqR1.png" /></div>
+    <div class="container">
+      <div class="wrapper card-wrapper">
+        <div class="card card-rotating" [ngClass]="{ flipped: isFlipped }">
+          <form action="" class="face front">
+            <h1>Sign Up</h1>
+            <div class="input-box">
+              <input
+                type="text"
+                placeholder="First name"
+                [(ngModel)]="name"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <input
+                type="text"
+                placeholder="Last name"
+                [(ngModel)]="surName"
+                required
+              />
+            </div>
+            <div class="signup">
+              <button
+                mat-raised-button
+                style="background-color: rgb(47, 47, 50); color: white"
+                (click)="SignUp()"
+              >
+                Sign Up
+              </button>
+            </div>
+            <div class="signin">
+              <span>Already have an account? </span>
+              <button
+                mat-raised-button
+                style="background-color: rgb(100, 100, 237); color: white"
+                class="rotate-btn"
+                (click)="isFlipped = !isFlipped"
+              >
+                Sign In
+              </button>
+            </div>
+          </form>
+          <form action="" class="face back">
+            <h1>Sign In</h1>
+            <div class="input-box">
+              <input
+                type="text"
+                placeholder="Username"
+                [(ngModel)]="userId"
+                autofocus
+              />
+            </div>
+            <div class="input-box">
+              <input
+                type="text"
+                placeholder="Password"
+                [(ngModel)]="surName"
+                required
+              />
+            </div>
+            <div class="signup">
+              <button
+                mat-raised-button
+                style="background-color: rgb(47, 47, 50); color: white"
+                (click)="chooseUser()"
+              >
+                Sign In
+              </button>
+            </div>
+            <div class="signin">
+              <span>Don't have an account? </span>
+              <button
+                mat-raised-button
+                style="background-color: rgb(100, 100, 237); color: white"
+                class="rotate-btn"
+                (click)="isFlipped = !isFlipped"
+              >
+                Sign Up
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
-
-

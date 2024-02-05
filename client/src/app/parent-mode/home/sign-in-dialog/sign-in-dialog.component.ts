@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { IChild } from 'src/app/child.interface';
 import { ChildService } from 'src/app/child.service';
@@ -18,7 +19,8 @@ export class SignInDialogComponent {
     public dialogRef: MatDialogRef<SignInDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private habitService: HabitService,
-    private childService: ChildService
+    private childService: ChildService,
+    private route: Router
   ) {}
   userId!: string;
 
@@ -32,10 +34,10 @@ export class SignInDialogComponent {
       console.log(`SignInDialogComponent > user: `, user);
       this.childService.setCurrentUserId(user);
     }
-    this.dialogRef.close();
+    this.dialogRef.close('/stepper');
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close('/home');
   }
 }
