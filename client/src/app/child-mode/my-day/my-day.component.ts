@@ -54,7 +54,6 @@ export class MyDayComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.importBootstrapCSS();
     this.filterHabitsbyUser();
     this.findChildren();
     this.fetchCurrentUser();
@@ -225,26 +224,5 @@ const colors = ['#d06ab2', '#009aff', '#de768c', '#d358ff'];
     this.habitService
       .editHabitChildMap(childId, habitId, habitStatus)
       .subscribe();
-  }
-
-  importBootstrapCSS(): void {
-    // Dynamically add Bootstrap stylesheet link
-    const link = this.renderer.createElement('link');
-    this.renderer.setAttribute(link, 'rel', 'stylesheet');
-    this.renderer.setAttribute(
-      link,
-      'href',
-      'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css'
-    );
-    this.renderer.appendChild(this.el.nativeElement, link);
-
-    const mdbLink = this.renderer.createElement('link');
-    this.renderer.setAttribute(mdbLink, 'rel', 'stylesheet');
-    this.renderer.setAttribute(
-      mdbLink,
-      'href',
-      'https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/compiled-4.20.0.min.css'
-    );
-    this.renderer.appendChild(this.el.nativeElement, mdbLink);
   }
 }

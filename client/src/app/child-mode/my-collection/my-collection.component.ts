@@ -32,9 +32,7 @@ export class MyCollectionComponent implements OnInit {
     const currChild: IChild = this.children.find(
       (child) => child.child_id === this.childId
     )!;
-    console.log(`[onToggleClick] currChild:`, currChild);
     this.userActivatedItems = currChild.number_of_activateItems;
-    console.log(`[onToggleClick] userActivatedItems:`, this.userActivatedItems);
   }
 
   async getChildId() {
@@ -42,10 +40,8 @@ export class MyCollectionComponent implements OnInit {
       this.childId = data;
       console.log(`MyCollectionComponent > getDataChildId():`, data);
     });
-    // const getDataChildId = this.dataService.getDataChildId();
-    // this.childId = await lastValueFrom(getDataChildId);
-    // console.log(`MyCollectionComponents > this.childId: ${this.childId}`);
   }
+
   async getNumActivated() {
     this.dataService.getDataNumActivate().subscribe((data) => {
       this.userActivatedItems = data;
@@ -60,16 +56,10 @@ export class MyCollectionComponent implements OnInit {
   }
 
   async onToggleClick(childId: number) {
-    // console.log(`[onToggleClick] incoming childId: ${childId}`);
     const currChild: IChild = this.children.find(
       (child) => child.child_id === childId
     )!;
-    // console.log(`[onToggleClick] currChild:`, currChild);
     this.userActivatedItems = currChild.number_of_activateItems;
-    // console.log(`[onToggleClick] userActivatedItems:`, this.userActivatedItems);
-
-    // this.childId = currChild.child_id!;
-    // console.log(`[onToggleClick] this.childId :`, this.childId);
     this.disableCard(this.userActivatedItems!, this.childId);
   }
 
