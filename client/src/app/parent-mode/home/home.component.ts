@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SignInDialogComponent } from './sign-in-dialog/sign-in-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -38,11 +38,6 @@ export class HomeComponent implements OnInit {
     const listOfUsers = await this.childService.addUser(user);
     let currentUser: IUser = listOfUsers[listOfUsers.length - 1];
     this.childService.setCurrentUserId(currentUser.user_id!);
-    // this.childService
-    //   .setCurrentUserId(currentUser.user_id!)
-    //   .subscribe((data) => {
-    //     console.log(`HomeComponent > currentUser.user_id:`, data);
-    //   });
 
     this.route.navigate(['/stepper']);
   }
@@ -71,6 +66,5 @@ export class HomeComponent implements OnInit {
       this.dataService.setDataUserId(user);
       this.route.navigate(['/stepper']);
     }
-    // this.dialogRef.close('/stepper');
   }
 }
