@@ -80,11 +80,14 @@ audio {
   border-radius: 20px;
 }
 .front .btn-primary {
-  background-color: limegreen !important;
+  background-color: #96e9c6 !important;
+  color: #6c22a6;
+  font-weight: 800;
 }
 
 .back .btn-primary {
   background-color: rgb(120, 11, 11) !important;
+  font-weight: 800;
 }
 .container {
   display: grid;
