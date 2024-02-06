@@ -16,7 +16,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { HomeComponent } from './home/home.component';
-import { SignInDialogComponent } from './home/sign-in-dialog/sign-in-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,6 @@ import { SignInDialogComponent } from './home/sign-in-dialog/sign-in-dialog.comp
     HabitComponent,
     HabitDialogComponent,
     HomeComponent,
-    SignInDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -49,7 +47,6 @@ import { SignInDialogComponent } from './home/sign-in-dialog/sign-in-dialog.comp
     HabitComponent,
     HabitDialogComponent,
     HomeComponent,
-    SignInDialogComponent,
   ],
 })
 export class ParentModeModule {}

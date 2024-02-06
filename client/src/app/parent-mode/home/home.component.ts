@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { SignInDialogComponent } from './sign-in-dialog/sign-in-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChildService } from 'src/app/child.service';
 import { IUser } from 'src/app/parent.interface';
@@ -11,9 +9,8 @@ import { DataService } from 'src/app/shared.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   constructor(
-    private dialog: MatDialog,
     private route: Router,
     private childService: ChildService,
     private dataService: DataService
@@ -22,11 +19,10 @@ export class HomeComponent implements OnInit {
   surName!: string;
   isFlipped = false;
   userId!: string;
-
-  ngOnInit(): void {}
+  user: number = 0;
 
   SignIn() {
-    this.openDialogToSignIn();
+    this.chooseUser();
   }
 
   async SignUp() {
@@ -36,34 +32,20 @@ export class HomeComponent implements OnInit {
     };
 
     const listOfUsers = await this.childService.addUser(user);
-    let currentUser: IUser = listOfUsers[listOfUsers.length - 1];
-    this.childService.setCurrentUserId(currentUser.user_id!);
-
-    this.route.navigate(['/stepper']);
-  }
-
-  openDialogToSignIn() {
-    let dialogRef = this.dialog.open(SignInDialogComponent, {
-      width: '1000px',
-      data: { name: 0 },
-    });
-
-    dialogRef.afterClosed().subscribe((path) => {
-      console.log('The dialog was closed with data: ', path);
-
-      this.route.navigate([path]);
-    });
+    this.user = listOfUsers[listOfUsers.length - 1].user_id!;
+    this.chooseUser();
   }
 
   chooseUser() {
-    console.log(`chooseUser() reached!`);
-    if (this.userId == null) {
+    if (this.userId === null) {
       console.log('Error with user');
     } else {
-      const user = Number(this.userId);
-      console.log(`SignInDialogComponent > user: `, user);
-      this.childService.setCurrentUserId(user);
-      this.dataService.setDataUserId(user);
+      if (this.user === 0) {
+        this.user = Number(this.userId);
+      }
+      console.log(`SignInDialogComponent > user: `, this.user);
+      this.childService.setCurrentUserId(this.user);
+      this.dataService.setDataUserId(this.user);
       this.route.navigate(['/stepper']);
     }
   }
