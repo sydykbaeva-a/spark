@@ -13,7 +13,7 @@
 <div class="add-habit-button">
   <button
     mat-raised-button
-    style="background-color: rgb(77, 186, 120); color: white; margin-top: 1rem"
+    style="background-color: #96e9c6; color: black; margin-top: 1rem"
     (click)="addOrEditHabit()"
   >
     Add Habit
@@ -59,7 +59,7 @@
     <td mat-cell *matCellDef="let item">
       <button
         mat-raised-button
-        style="background-color: rgb(65, 65, 228); color: white"
+        style="background-color: #6962ad; color: white"
         (click)="addOrEditHabit(item)"
       >
         Edit
@@ -69,25 +69,19 @@
 
   <tr
     mat-header-row
-    *matHeaderRowDef="[
-      'habit',
-      'child_id',
-      'child_name',
-      'actions',
-      'actions2'
-    ]"
+    *matHeaderRowDef="['habit', 'child_name', 'actions', 'actions2']"
   ></tr>
   <tr
     mat-row
     *matRowDef="
       let row;
-      columns: ['habit', 'child_id', 'child_name', 'actions', 'actions2']
+      columns: ['habit', 'child_name', 'actions', 'actions2']
     "
   ></tr>
 </table>
 <button
   mat-raised-button
-  style="background-color: rgb(77, 186, 120); color: white"
+  style="background-color: #96e9c6; color: black"
   (click)="addOrEditHabit()"
 >
   Add Habit

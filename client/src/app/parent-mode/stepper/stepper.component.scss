@@ -1,5 +1,13 @@
+body {
+  // background-color: #6c22a69c !important;
+}
+
 .example-stepper {
   font-family: "Montserrat" !important;
+  background-color: initial !important;
+  .mat-step-text-label {
+    color: white !important;
+  }
 }
 
 .next-button {

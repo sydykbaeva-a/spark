@@ -22,6 +22,7 @@ export class DataService {
   }
 
   public setDataChildId(data: any): void {
+    console.log(`SharedService > setDataChildId() for data: `, data);
     this.dataChildId$.next(data);
   }
 
@@ -40,10 +41,10 @@ export class DataService {
   private dataUserId$: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
   public getDataUserId(): Observable<any> {
-    return this.dataChildId$.asObservable();
+    return this.dataUserId$.asObservable();
   }
 
   public setDataUserId(data: any): void {
-    this.dataChildId$.next(data);
+    this.dataUserId$.next(data);
   }
 }

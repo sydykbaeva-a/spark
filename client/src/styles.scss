@@ -5,6 +5,7 @@ body {
   height: 100%;
   margin: 0;
   font-family: "Montserrat", "Helvetica Neue", sans-serif;
+  background-color: #6d22a664 !important;
 }
 @font-face {
   font-family: "Sparkle";
@@ -17,4 +18,44 @@ body {
 .theme h1,
 .my-day-heading {
   font-family: "Sparkle", sans-serif !important;
+}
+
+.mat-step-icon-selected .mat-step-text-label {
+  color: white !important;
+}
+.mat-step-icon-selected .mat-step-icon-content span {
+  color: black !important;
+}
+
+.done-setup {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  width: 90%;
+  font-family: "Montserrat";
+  h2 {
+    font-size: 24px;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
+
+.next-button,
+.mat-stepper-previous,
+.mat-stepper-next {
+  background-color: #83c0c1 !important;
+}
+.mat-stepper-next {
+  margin-left: 8px;
+}
+#cdk-step-content-0-2 .mat-stepper-previous {
+  float: right;
+}
+
+.container .row .face h1 {
+  font-family: "Montserrat" !important;
 }

@@ -9,7 +9,6 @@ import { NavComponent } from './nav/nav.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MyDayDialogComponent } from './my-day-dialog/my-day-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,7 +31,6 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     RouterModule,
     MatButtonModule,
-    MatBadgeModule,
     MatDialogModule,
   ],
   exports: [
