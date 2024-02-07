@@ -16,7 +16,7 @@ import { IChatRequest } from '../../../../../../server/src/ai-assist/model/opena
 export class HabitDialogComponent {
   habit!: HabitInterface;
   children!: IChild[];
-  habitName!: string;
+  habitName: string = '';
   editMode = false;
   previoslyCheckedChildIds: number[] = [];
   listOfHabitAndChildMap: IHabitChildMap[] = [];
@@ -159,5 +159,9 @@ export class HabitDialogComponent {
     const habits = await this.habitService.getAiHabit(iChatRequest);
     const aiHabit = (await lastValueFrom(habits)).result.message.content;
     this.habitName = aiHabit ?? '';
+  }
+
+  isInputValid(): boolean {
+    return this.habitName.trim().length > 0;
   }
 }

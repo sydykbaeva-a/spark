@@ -129,39 +129,7 @@ export class MyDayComponent implements OnInit {
   }
 
   triggerConfetti(): void {
-    const script = this.renderer.createElement('script');
-    script.type = 'text/javascript';
-    script.text = `
-    const end = Date.now() + 15 * 1000;
-
-// go Buckeyes!
-// const colors = ["#bb0000", "#ffffff"];
-const colors = ['#d06ab2', '#009aff', '#de768c', '#d358ff'];
-
-
-(function frame() {
-  confetti({
-    particleCount: 2,
-    angle: 60,
-    spread: 55,
-    origin: { x: 0 },
-    colors: colors,
-  });
-
-  confetti({
-    particleCount: 2,
-    angle: 120,
-    spread: 55,
-    origin: { x: 1 },
-    colors: colors,
-  });
-
-  if (Date.now() < end) {
-    requestAnimationFrame(frame);
-  }
-})();    
-    `;
-    this.renderer.appendChild(this.el.nativeElement, script);
+    (window as any).triggerConfetti();
   }
 
   findChildren() {

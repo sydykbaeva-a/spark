@@ -46,7 +46,12 @@
   </mat-dialog-content>
   <mat-dialog-actions class="submit-habit-child">
     <button mat-button (click)="onNoClick()" tabindex="-1">No Thanks</button>
-    <button mat-button tabindex="2" (click)="chosenChildrenAndAddHabit()">
+    <button
+      mat-button
+      tabindex="2"
+      (click)="chosenChildrenAndAddHabit()"
+      [disabled]="!isInputValid()"
+    >
       Ok
     </button>
   </mat-dialog-actions>

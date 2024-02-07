@@ -42,5 +42,34 @@
       type="module"
       src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"
     ></script>
+    <script>
+      // Define a global function for triggering confetti
+      function triggerConfetti() {
+        const colors = ["#d06ab2", "#009aff", "#de768c", "#d358ff"];
+        const end = Date.now() + 15 * 1000;
+
+        (function frame() {
+          confetti({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colors,
+          });
+
+          confetti({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colors,
+          });
+
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        })();
+      }
+    </script>
   </body>
 </html>

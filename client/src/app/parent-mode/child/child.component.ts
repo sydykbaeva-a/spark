@@ -14,7 +14,7 @@ export class ChildComponent implements OnInit {
   childDataSource = new MatTableDataSource<IChild>();
   children$ = new Observable<IChild[]>();
   userId = 1;
-  childName!: string;
+  childName: string = '';
   invalidInput: boolean = true;
   constructor(
     private childService: ChildService,
@@ -47,6 +47,7 @@ export class ChildComponent implements OnInit {
   }
 
   checkInput() {
+    this.childName = this.childName.trim();
     if (this.childName.length > 0) {
       this.invalidInput = false;
     } else {
@@ -55,6 +56,7 @@ export class ChildComponent implements OnInit {
   }
 
   async addingChild() {
+    this.checkInput();
     const child: IChild = {
       child_name: this.childName,
       user_id: this.userId,
