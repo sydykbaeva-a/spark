@@ -137,18 +137,24 @@ export class ParentController {
 
   // Find habits by user id (parent)
   @Get(':id/habits') //pass a user_id
-  async findHabitsByUser(@Param('id') id: number) {
+  async findHabitsByUser(@Param('id') id: number): Promise<
+    {
+      habit_name: string;
+      child_id: number;
+      child_name: string;
+    }[]
+  > {
     return await this.habitService.findHabitsByUser(id);
   }
 
   @Post('user_add')
-  async addUser(@Body() user: ParentEntity) {
+  async addUser(@Body() user: ParentEntity): Promise<ParentEntity[]> {
     await this.childService.addUser(user);
     return await this.childService.findUsers();
   }
 
   @Get('users')
-  async findUsers() {
+  async findUsers(): Promise<ParentEntity[]> {
     return await this.childService.findUsers();
   }
 }
