@@ -59,3 +59,6 @@ body {
 .container .row .face h1 {
   font-family: "Montserrat" !important;
 }
+.mat-mdc-tab-header {
+  --mdc-tab-indicator-active-indicator-height: 0 !important;
+}
