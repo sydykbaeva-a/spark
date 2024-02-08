@@ -5,7 +5,9 @@ body {
   height: 100%;
   margin: 0;
   font-family: "Montserrat", "Helvetica Neue", sans-serif;
-  background-color: #6d22a664 !important;
+  // background-color: #6d22a664 !important;
+  background-image: url("./assets/my-prize-bg.png");
+  background-size: cover;
 }
 @font-face {
   font-family: "Sparkle";
@@ -61,4 +63,8 @@ body {
 }
 .mat-mdc-tab-header {
   --mdc-tab-indicator-active-indicator-height: 0 !important;
+}
+
+body.home-component {
+  background-color: #4e4ab9 !important;
 }

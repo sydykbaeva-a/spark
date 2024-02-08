@@ -4,14 +4,17 @@
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
 }
+body.home-component {
+  background-color: #4e4ab9 !important;
+}
 
 #parent {
   display: grid;
 }
 
 .spark {
-  grid-column: 1/2;
-  grid-row: 1/2;
+  grid-column: 1/4;
+  grid-row: 1/4;
 }
 
 .container {
@@ -19,10 +22,26 @@
   justify-content: right;
   align-items: start;
   min-height: 100vh;
-  width: 100%;
   min-width: 85%;
-  grid-column: 1/2;
-  grid-row: 1/2;
+
+  grid-column: 3/4;
+  grid-row: 3/4;
+  width: 90%;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    grid-column: 1/4 !important;
+    grid-row: 1/4 !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    justify-content: center !important;
+  }
+  .spark-logo[_ngcontent-ng-c239425640] {
+    max-width: 100% !important;
+    grid-column: 1/4 !important;
+    grid-row: 1/4 !important;
+  }
 }
 
 .wrapper h1 {

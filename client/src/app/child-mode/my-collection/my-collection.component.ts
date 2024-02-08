@@ -29,10 +29,10 @@ export class MyCollectionComponent implements OnInit {
     this.getChildId();
     this.getNumActivated();
 
-    const currChild: IChild = this.children.find(
-      (child) => child.child_id === this.childId
-    )!;
-    this.userActivatedItems = currChild.number_of_activateItems;
+    // const currChild: IChild = this.children.find(
+    //   (child) => child.child_id === this.childId
+    // )!;
+    // this.userActivatedItems = currChild.number_of_activateItems;
   }
 
   async getChildId() {
