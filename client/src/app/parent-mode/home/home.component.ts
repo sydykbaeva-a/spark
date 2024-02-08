@@ -31,8 +31,8 @@ export class HomeComponent {
       last_name: this.surName,
     };
 
-    const listOfUsers = await this.childService.addUser(user);
-    this.user = listOfUsers[listOfUsers.length - 1].user_id!;
+    const [newUser, allUsers] = await this.childService.addUser(user);
+    this.user = newUser.user_id!;
     this.chooseUser();
   }
 

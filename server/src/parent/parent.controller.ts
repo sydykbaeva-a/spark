@@ -148,9 +148,12 @@ export class ParentController {
   }
 
   @Post('user_add')
-  async addUser(@Body() user: ParentEntity): Promise<ParentEntity[]> {
-    await this.childService.addUser(user);
-    return await this.childService.findUsers();
+  async addUser(
+    @Body() user: ParentEntity,
+  ): Promise<[ParentEntity, ParentEntity[]]> {
+    const newUser = await this.childService.addUser(user);
+    const listOfAllUsers = await this.childService.findUsers();
+    return [newUser, listOfAllUsers];
   }
 
   @Get('users')

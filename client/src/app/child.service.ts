@@ -78,9 +78,9 @@ export class ChildService {
     return this.http.patch<IChild[]>(`${httpUrl}/${childId}`, childNameObj);
   }
 
-  async addUser(user: IUser): Promise<IUser[]> {
+  async addUser(user: IUser): Promise<[IUser, IUser[]]> {
     const http = this.baseHttpUrl + 'user_add';
-    const users = await this.http.post<IUser[]>(http, user);
+    const users = await this.http.post<[IUser, IUser[]]>(http, user);
     return lastValueFrom(users);
   }
 
