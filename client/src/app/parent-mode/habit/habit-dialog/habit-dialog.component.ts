@@ -152,7 +152,7 @@ export class HabitDialogComponent {
         {
           role: 'assistant',
           content:
-            'write a unique daily habit for an eight-year-old in less than 50 characters that they can do every single day and be both creative and practical but do NOT: (1) include a period at the end, (2) include habits related to brushing teeth, (3) include references to the number of times per week. Do not end sentence with a period. Do not use double quotes. Since this is a habit for every day, do not use verbs related to starting or beginning a habit.',
+            'write a unique practical and healthy daily habit for an eight-year-old in 10 words or less that they can do every single day but: (1) do not include a period at the end, (2) do not include double quotation marks, (3) do not include habits related to brushing teeth, (3) do not include references to the number of times per week. Remember: do not end sentence with a period. Do not use double quotes. Since this is a habit for every day, do not use verbs related to starting or beginning a habit.',
         },
       ],
     };
