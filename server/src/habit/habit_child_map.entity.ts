@@ -1,4 +1,4 @@
-import { ChildEntity } from 'src/child/child.entity';
+import { ChildEntity } from '../child/child.entity';
 import {
   Column,
   Entity,

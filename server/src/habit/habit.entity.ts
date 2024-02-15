@@ -1,12 +1,4 @@
-import { ChildEntity } from 'src/child/child.entity';
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { HabitChildMapEntity } from './habit_child_map.entity';
 
 @Entity('habit')
